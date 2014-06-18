@@ -1,0 +1,442 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		82DEA80219525D1C00C526FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA80119525D1C00C526FF /* main.m */; };
+		82DEA80519525D1C00C526FF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA80419525D1C00C526FF /* AppDelegate.m */; };
+		82DEA80819525D1C00C526FF /* SecretHandshake.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA80619525D1C00C526FF /* SecretHandshake.xcdatamodeld */; };
+		82DEA80B19525D1C00C526FF /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA80A19525D1C00C526FF /* MasterViewController.m */; };
+		82DEA80E19525D1C00C526FF /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA80D19525D1C00C526FF /* DetailViewController.m */; };
+		82DEA81119525D1C00C526FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82DEA80F19525D1C00C526FF /* Main.storyboard */; };
+		82DEA81319525D1C00C526FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82DEA81219525D1C00C526FF /* Images.xcassets */; };
+		82DEA81F19525D1D00C526FF /* SecretHandshakeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA81E19525D1D00C526FF /* SecretHandshakeTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		82DEA81919525D1D00C526FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82DEA7F419525D1C00C526FF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 82DEA7FB19525D1C00C526FF;
+			remoteInfo = SecretHandshake;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		82DEA7FC19525D1C00C526FF /* SecretHandshake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecretHandshake.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		82DEA80019525D1C00C526FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82DEA80119525D1C00C526FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		82DEA80319525D1C00C526FF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		82DEA80419525D1C00C526FF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		82DEA80719525D1C00C526FF /* SecretHandshake.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SecretHandshake.xcdatamodel; sourceTree = "<group>"; };
+		82DEA80919525D1C00C526FF /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		82DEA80A19525D1C00C526FF /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		82DEA80C19525D1C00C526FF /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		82DEA80D19525D1C00C526FF /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		82DEA81019525D1C00C526FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		82DEA81219525D1C00C526FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		82DEA81819525D1D00C526FF /* SecretHandshakeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecretHandshakeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		82DEA81D19525D1D00C526FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82DEA81E19525D1D00C526FF /* SecretHandshakeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecretHandshakeTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		82DEA7F919525D1C00C526FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82DEA81519525D1D00C526FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		82DEA7F319525D1C00C526FF = {
+			isa = PBXGroup;
+			children = (
+				82DEA7FE19525D1C00C526FF /* SecretHandshake */,
+				82DEA81B19525D1D00C526FF /* SecretHandshakeTests */,
+				82DEA7FD19525D1C00C526FF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		82DEA7FD19525D1C00C526FF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				82DEA7FC19525D1C00C526FF /* SecretHandshake.app */,
+				82DEA81819525D1D00C526FF /* SecretHandshakeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		82DEA7FE19525D1C00C526FF /* SecretHandshake */ = {
+			isa = PBXGroup;
+			children = (
+				82DEA80319525D1C00C526FF /* AppDelegate.h */,
+				82DEA80419525D1C00C526FF /* AppDelegate.m */,
+				82DEA80919525D1C00C526FF /* MasterViewController.h */,
+				82DEA80A19525D1C00C526FF /* MasterViewController.m */,
+				82DEA80C19525D1C00C526FF /* DetailViewController.h */,
+				82DEA80D19525D1C00C526FF /* DetailViewController.m */,
+				82DEA80F19525D1C00C526FF /* Main.storyboard */,
+				82DEA81219525D1C00C526FF /* Images.xcassets */,
+				82DEA80619525D1C00C526FF /* SecretHandshake.xcdatamodeld */,
+				82DEA7FF19525D1C00C526FF /* Supporting Files */,
+			);
+			path = SecretHandshake;
+			sourceTree = "<group>";
+		};
+		82DEA7FF19525D1C00C526FF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				82DEA80019525D1C00C526FF /* Info.plist */,
+				82DEA80119525D1C00C526FF /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		82DEA81B19525D1D00C526FF /* SecretHandshakeTests */ = {
+			isa = PBXGroup;
+			children = (
+				82DEA81E19525D1D00C526FF /* SecretHandshakeTests.m */,
+				82DEA81C19525D1D00C526FF /* Supporting Files */,
+			);
+			path = SecretHandshakeTests;
+			sourceTree = "<group>";
+		};
+		82DEA81C19525D1D00C526FF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				82DEA81D19525D1D00C526FF /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		82DEA7FB19525D1C00C526FF /* SecretHandshake */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82DEA82219525D1D00C526FF /* Build configuration list for PBXNativeTarget "SecretHandshake" */;
+			buildPhases = (
+				82DEA7F819525D1C00C526FF /* Sources */,
+				82DEA7F919525D1C00C526FF /* Frameworks */,
+				82DEA7FA19525D1C00C526FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SecretHandshake;
+			productName = SecretHandshake;
+			productReference = 82DEA7FC19525D1C00C526FF /* SecretHandshake.app */;
+			productType = "com.apple.product-type.application";
+		};
+		82DEA81719525D1D00C526FF /* SecretHandshakeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82DEA82519525D1D00C526FF /* Build configuration list for PBXNativeTarget "SecretHandshakeTests" */;
+			buildPhases = (
+				82DEA81419525D1D00C526FF /* Sources */,
+				82DEA81519525D1D00C526FF /* Frameworks */,
+				82DEA81619525D1D00C526FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				82DEA81A19525D1D00C526FF /* PBXTargetDependency */,
+			);
+			name = SecretHandshakeTests;
+			productName = SecretHandshakeTests;
+			productReference = 82DEA81819525D1D00C526FF /* SecretHandshakeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		82DEA7F419525D1C00C526FF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Laura Skelton";
+				TargetAttributes = {
+					82DEA7FB19525D1C00C526FF = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					82DEA81719525D1D00C526FF = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 82DEA7FB19525D1C00C526FF;
+					};
+				};
+			};
+			buildConfigurationList = 82DEA7F719525D1C00C526FF /* Build configuration list for PBXProject "SecretHandshake" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 82DEA7F319525D1C00C526FF;
+			productRefGroup = 82DEA7FD19525D1C00C526FF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				82DEA7FB19525D1C00C526FF /* SecretHandshake */,
+				82DEA81719525D1D00C526FF /* SecretHandshakeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		82DEA7FA19525D1C00C526FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82DEA81119525D1C00C526FF /* Main.storyboard in Resources */,
+				82DEA81319525D1C00C526FF /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82DEA81619525D1D00C526FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		82DEA7F819525D1C00C526FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82DEA80E19525D1C00C526FF /* DetailViewController.m in Sources */,
+				82DEA80B19525D1C00C526FF /* MasterViewController.m in Sources */,
+				82DEA80519525D1C00C526FF /* AppDelegate.m in Sources */,
+				82DEA80819525D1C00C526FF /* SecretHandshake.xcdatamodeld in Sources */,
+				82DEA80219525D1C00C526FF /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82DEA81419525D1D00C526FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82DEA81F19525D1D00C526FF /* SecretHandshakeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		82DEA81A19525D1D00C526FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 82DEA7FB19525D1C00C526FF /* SecretHandshake */;
+			targetProxy = 82DEA81919525D1D00C526FF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		82DEA80F19525D1C00C526FF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				82DEA81019525D1C00C526FF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		82DEA82019525D1D00C526FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		82DEA82119525D1D00C526FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		82DEA82319525D1D00C526FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = SecretHandshake/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		82DEA82419525D1D00C526FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = SecretHandshake/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		82DEA82619525D1D00C526FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SecretHandshake.app/SecretHandshake";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SecretHandshakeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		82DEA82719525D1D00C526FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SecretHandshake.app/SecretHandshake";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SecretHandshakeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		82DEA7F719525D1C00C526FF /* Build configuration list for PBXProject "SecretHandshake" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82DEA82019525D1D00C526FF /* Debug */,
+				82DEA82119525D1D00C526FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82DEA82219525D1D00C526FF /* Build configuration list for PBXNativeTarget "SecretHandshake" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82DEA82319525D1D00C526FF /* Debug */,
+				82DEA82419525D1D00C526FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		82DEA82519525D1D00C526FF /* Build configuration list for PBXNativeTarget "SecretHandshakeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82DEA82619525D1D00C526FF /* Debug */,
+				82DEA82719525D1D00C526FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		82DEA80619525D1C00C526FF /* SecretHandshake.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				82DEA80719525D1C00C526FF /* SecretHandshake.xcdatamodel */,
+			);
+			currentVersion = 82DEA80719525D1C00C526FF /* SecretHandshake.xcdatamodel */;
+			path = SecretHandshake.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 82DEA7F419525D1C00C526FF /* Project object */;
+}
