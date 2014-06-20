@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82B2D0361953715F004C6577 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2D0331953715F004C6577 /* GTMOAuth2Authentication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		82B2D0371953715F004C6577 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2D0351953715F004C6577 /* GTMOAuth2SignIn.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		82B2D03A1953716E004C6577 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2D0391953716E004C6577 /* GTMHTTPFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		82B2D03E1953717B004C6577 /* GTMOAuth2ViewControllerTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2D03C1953717B004C6577 /* GTMOAuth2ViewControllerTouch.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		82B2D03F1953717B004C6577 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82B2D03D1953717B004C6577 /* GTMOAuth2ViewTouch.xib */; };
+		82B2D06B19544513004C6577 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82B2D06519544513004C6577 /* libTestFlight.a */; };
+		82B2D06F1954453B004C6577 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 82B2D06E1954453B004C6577 /* libz.dylib */; };
 		82DEA80219525D1C00C526FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA80119525D1C00C526FF /* main.m */; };
 		82DEA80519525D1C00C526FF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA80419525D1C00C526FF /* AppDelegate.m */; };
 		82DEA80819525D1C00C526FF /* SecretHandshake.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA80619525D1C00C526FF /* SecretHandshake.xcdatamodeld */; };
@@ -15,6 +22,10 @@
 		82DEA81119525D1C00C526FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82DEA80F19525D1C00C526FF /* Main.storyboard */; };
 		82DEA81319525D1C00C526FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82DEA81219525D1C00C526FF /* Images.xcassets */; };
 		82DEA81F19525D1D00C526FF /* SecretHandshakeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA81E19525D1D00C526FF /* SecretHandshakeTests.m */; };
+		82F0AE131952900C003A1014 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F0AE121952900C003A1014 /* Event.m */; };
+		82F0AE1619529160003A1014 /* HackerSchooler.m in Sources */ = {isa = PBXBuildFile; fileRef = 82F0AE1519529160003A1014 /* HackerSchooler.m */; };
+		82F0AE1819529B83003A1014 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F0AE1719529B83003A1014 /* CoreBluetooth.framework */; };
+		82F0AE1A19529B89003A1014 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F0AE1919529B89003A1014 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +39,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		825822B4195365A80098ED5B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		82B2D0321953715F004C6577 /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2Authentication.h; sourceTree = "<group>"; };
+		82B2D0331953715F004C6577 /* GTMOAuth2Authentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2Authentication.m; sourceTree = "<group>"; };
+		82B2D0341953715F004C6577 /* GTMOAuth2SignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2SignIn.h; sourceTree = "<group>"; };
+		82B2D0351953715F004C6577 /* GTMOAuth2SignIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2SignIn.m; sourceTree = "<group>"; };
+		82B2D0381953716E004C6577 /* GTMHTTPFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcher.h; sourceTree = "<group>"; };
+		82B2D0391953716E004C6577 /* GTMHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcher.m; sourceTree = "<group>"; };
+		82B2D03B1953717B004C6577 /* GTMOAuth2ViewControllerTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2ViewControllerTouch.h; sourceTree = "<group>"; };
+		82B2D03C1953717B004C6577 /* GTMOAuth2ViewControllerTouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2ViewControllerTouch.m; sourceTree = "<group>"; };
+		82B2D03D1953717B004C6577 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GTMOAuth2ViewTouch.xib; sourceTree = "<group>"; };
+		82B2D06519544513004C6577 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		82B2D06819544513004C6577 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		82B2D06919544513004C6577 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		82B2D06A19544513004C6577 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		82B2D06E1954453B004C6577 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		82B2D07019544B87004C6577 /* SecretHandshake-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SecretHandshake-Prefix.pch"; sourceTree = "<group>"; };
 		82DEA7FC19525D1C00C526FF /* SecretHandshake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecretHandshake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DEA80019525D1C00C526FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82DEA80119525D1C00C526FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -43,6 +70,13 @@
 		82DEA81819525D1D00C526FF /* SecretHandshakeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SecretHandshakeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DEA81D19525D1D00C526FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82DEA81E19525D1D00C526FF /* SecretHandshakeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecretHandshakeTests.m; sourceTree = "<group>"; };
+		82F0AE111952900C003A1014 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		82F0AE121952900C003A1014 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		82F0AE1419529160003A1014 /* HackerSchooler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HackerSchooler.h; sourceTree = "<group>"; };
+		82F0AE1519529160003A1014 /* HackerSchooler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HackerSchooler.m; sourceTree = "<group>"; };
+		82F0AE1719529B83003A1014 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		82F0AE1919529B89003A1014 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		82F0AE2919534873003A1014 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +84,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82B2D06F1954453B004C6577 /* libz.dylib in Frameworks */,
+				82B2D06B19544513004C6577 /* libTestFlight.a in Frameworks */,
+				82F0AE1A19529B89003A1014 /* CoreLocation.framework in Frameworks */,
+				82F0AE1819529B83003A1014 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,10 +101,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		825822A31953654D0098ED5B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				82B2D06419544504004C6577 /* TestFlight3 */,
+				82B2D03119537157004C6577 /* OAuth */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		82B2D03119537157004C6577 /* OAuth */ = {
+			isa = PBXGroup;
+			children = (
+				82B2D0321953715F004C6577 /* GTMOAuth2Authentication.h */,
+				82B2D0331953715F004C6577 /* GTMOAuth2Authentication.m */,
+				82B2D0341953715F004C6577 /* GTMOAuth2SignIn.h */,
+				82B2D0351953715F004C6577 /* GTMOAuth2SignIn.m */,
+				82B2D0381953716E004C6577 /* GTMHTTPFetcher.h */,
+				82B2D0391953716E004C6577 /* GTMHTTPFetcher.m */,
+				82B2D03B1953717B004C6577 /* GTMOAuth2ViewControllerTouch.h */,
+				82B2D03C1953717B004C6577 /* GTMOAuth2ViewControllerTouch.m */,
+				82B2D03D1953717B004C6577 /* GTMOAuth2ViewTouch.xib */,
+			);
+			name = OAuth;
+			sourceTree = "<group>";
+		};
+		82B2D06419544504004C6577 /* TestFlight3 */ = {
+			isa = PBXGroup;
+			children = (
+				82B2D06519544513004C6577 /* libTestFlight.a */,
+				82B2D06819544513004C6577 /* TestFlight.h */,
+				82B2D06919544513004C6577 /* TestFlight+AsyncLogging.h */,
+				82B2D06A19544513004C6577 /* TestFlight+ManualSessions.h */,
+			);
+			name = TestFlight3;
+			sourceTree = "<group>";
+		};
 		82DEA7F319525D1C00C526FF = {
 			isa = PBXGroup;
 			children = (
 				82DEA7FE19525D1C00C526FF /* SecretHandshake */,
+				82F0AE1B1952A8D5003A1014 /* Frameworks */,
 				82DEA81B19525D1D00C526FF /* SecretHandshakeTests */,
 				82DEA7FD19525D1C00C526FF /* Products */,
 			);
@@ -84,15 +159,12 @@
 		82DEA7FE19525D1C00C526FF /* SecretHandshake */ = {
 			isa = PBXGroup;
 			children = (
-				82DEA80319525D1C00C526FF /* AppDelegate.h */,
-				82DEA80419525D1C00C526FF /* AppDelegate.m */,
-				82DEA80919525D1C00C526FF /* MasterViewController.h */,
-				82DEA80A19525D1C00C526FF /* MasterViewController.m */,
-				82DEA80C19525D1C00C526FF /* DetailViewController.h */,
-				82DEA80D19525D1C00C526FF /* DetailViewController.m */,
-				82DEA80F19525D1C00C526FF /* Main.storyboard */,
-				82DEA81219525D1C00C526FF /* Images.xcassets */,
-				82DEA80619525D1C00C526FF /* SecretHandshake.xcdatamodeld */,
+				825822A31953654D0098ED5B /* Helpers */,
+				82DEA82819525E8D00C526FF /* AppDelegate */,
+				82DEA82919525E9300C526FF /* ViewControllers */,
+				82DEA82E1952609B00C526FF /* Resources */,
+				82F0AE1C19533C6D003A1014 /* iPad */,
+				82DEA82D1952608800C526FF /* DataModel */,
 				82DEA7FF19525D1C00C526FF /* Supporting Files */,
 			);
 			path = SecretHandshake;
@@ -101,6 +173,7 @@
 		82DEA7FF19525D1C00C526FF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				82B2D07019544B87004C6577 /* SecretHandshake-Prefix.pch */,
 				82DEA80019525D1C00C526FF /* Info.plist */,
 				82DEA80119525D1C00C526FF /* main.m */,
 			);
@@ -122,6 +195,67 @@
 				82DEA81D19525D1D00C526FF /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		82DEA82819525E8D00C526FF /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				82DEA80319525D1C00C526FF /* AppDelegate.h */,
+				82DEA80419525D1C00C526FF /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		82DEA82919525E9300C526FF /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				82DEA80919525D1C00C526FF /* MasterViewController.h */,
+				82DEA80A19525D1C00C526FF /* MasterViewController.m */,
+				82DEA80C19525D1C00C526FF /* DetailViewController.h */,
+				82DEA80D19525D1C00C526FF /* DetailViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		82DEA82D1952608800C526FF /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				82DEA80619525D1C00C526FF /* SecretHandshake.xcdatamodeld */,
+				82F0AE1419529160003A1014 /* HackerSchooler.h */,
+				82F0AE1519529160003A1014 /* HackerSchooler.m */,
+				82F0AE111952900C003A1014 /* Event.h */,
+				82F0AE121952900C003A1014 /* Event.m */,
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
+		82DEA82E1952609B00C526FF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				82DEA80F19525D1C00C526FF /* Main.storyboard */,
+				82DEA81219525D1C00C526FF /* Images.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		82F0AE1B1952A8D5003A1014 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				82B2D06E1954453B004C6577 /* libz.dylib */,
+				825822B4195365A80098ED5B /* SystemConfiguration.framework */,
+				82F0AE2919534873003A1014 /* Security.framework */,
+				82F0AE1919529B89003A1014 /* CoreLocation.framework */,
+				82F0AE1719529B83003A1014 /* CoreBluetooth.framework */,
+			);
+			name = Frameworks;
+			path = SecretHandshake;
+			sourceTree = "<group>";
+		};
+		82F0AE1C19533C6D003A1014 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iPad;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +307,7 @@
 				TargetAttributes = {
 					82DEA7FB19525D1C00C526FF = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 887UM5M866;
 					};
 					82DEA81719525D1D00C526FF = {
 						CreatedOnToolsVersion = 6.0;
@@ -187,6 +322,7 @@
 			knownRegions = (
 				en,
 				Base,
+				English,
 			);
 			mainGroup = 82DEA7F319525D1C00C526FF;
 			productRefGroup = 82DEA7FD19525D1C00C526FF /* Products */;
@@ -204,6 +340,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82B2D03F1953717B004C6577 /* GTMOAuth2ViewTouch.xib in Resources */,
 				82DEA81119525D1C00C526FF /* Main.storyboard in Resources */,
 				82DEA81319525D1C00C526FF /* Images.xcassets in Resources */,
 			);
@@ -224,10 +361,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				82DEA80E19525D1C00C526FF /* DetailViewController.m in Sources */,
+				82B2D0371953715F004C6577 /* GTMOAuth2SignIn.m in Sources */,
 				82DEA80B19525D1C00C526FF /* MasterViewController.m in Sources */,
 				82DEA80519525D1C00C526FF /* AppDelegate.m in Sources */,
+				82B2D03A1953716E004C6577 /* GTMHTTPFetcher.m in Sources */,
 				82DEA80819525D1C00C526FF /* SecretHandshake.xcdatamodeld in Sources */,
+				82F0AE1619529160003A1014 /* HackerSchooler.m in Sources */,
+				82B2D03E1953717B004C6577 /* GTMOAuth2ViewControllerTouch.m in Sources */,
 				82DEA80219525D1C00C526FF /* main.m in Sources */,
+				82F0AE131952900C003A1014 /* Event.m in Sources */,
+				82B2D0361953715F004C6577 /* GTMOAuth2Authentication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,9 +485,31 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SecretHandshake/Vendor/LROAuth2Client/Vendor/ASIHTTPRequest/External/GHUnit/Examples/MyTestable-MacOSX/Libraries",
+					"$(PROJECT_DIR)/SecretHandshake/Vendor/LROAuth2Client/Vendor/yajl-objc/Project/Frameworks",
+				);
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					"/Applications/Xcode6-Beta2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = SecretHandshake/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SecretHandshake/Vendor/LROAuth2Client/Vendor/ASIHTTPRequest/External/GHUnit/Examples/MyTestable-IPhone/Libraries/libGHUnitIPhone3_0-0.4.18",
+					"$(PROJECT_DIR)/SecretHandshake/Vendor/LROAuth2Client/Vendor/yajl-objc/Project-IPhone/Libraries/GHUnit",
+					"$(PROJECT_DIR)/SecretHandshake",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s $(ARCHS_STANDARD_32_BIT)";
 			};
 			name = Debug;
 		};
@@ -353,9 +518,30 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SecretHandshake/Vendor/LROAuth2Client/Vendor/ASIHTTPRequest/External/GHUnit/Examples/MyTestable-MacOSX/Libraries",
+					"$(PROJECT_DIR)/SecretHandshake/Vendor/LROAuth2Client/Vendor/yajl-objc/Project/Frameworks",
+				);
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					"/Applications/Xcode6-Beta2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = SecretHandshake/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SecretHandshake/Vendor/LROAuth2Client/Vendor/ASIHTTPRequest/External/GHUnit/Examples/MyTestable-IPhone/Libraries/libGHUnitIPhone3_0-0.4.18",
+					"$(PROJECT_DIR)/SecretHandshake/Vendor/LROAuth2Client/Vendor/yajl-objc/Project-IPhone/Libraries/GHUnit",
+					"$(PROJECT_DIR)/SecretHandshake",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s $(ARCHS_STANDARD_32_BIT)";
 			};
 			name = Release;
 		};
@@ -372,6 +558,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = SecretHandshakeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -388,6 +575,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = SecretHandshakeTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				METAL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -414,6 +602,7 @@
 				82DEA82419525D1D00C526FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		82DEA82519525D1D00C526FF /* Build configuration list for PBXNativeTarget "SecretHandshakeTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +611,7 @@
 				82DEA82719525D1D00C526FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
