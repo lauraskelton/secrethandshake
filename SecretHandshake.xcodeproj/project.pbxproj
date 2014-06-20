@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		828DE2421954C636008290BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 828DE2411954C636008290BB /* README.md */; };
 		82B2D0361953715F004C6577 /* GTMOAuth2Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2D0331953715F004C6577 /* GTMOAuth2Authentication.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		82B2D0371953715F004C6577 /* GTMOAuth2SignIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2D0351953715F004C6577 /* GTMOAuth2SignIn.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		82B2D03A1953716E004C6577 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B2D0391953716E004C6577 /* GTMHTTPFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		825822B4195365A80098ED5B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		828DE2411954C636008290BB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		82B2D0321953715F004C6577 /* GTMOAuth2Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2Authentication.h; sourceTree = "<group>"; };
 		82B2D0331953715F004C6577 /* GTMOAuth2Authentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2Authentication.m; sourceTree = "<group>"; };
 		82B2D0341953715F004C6577 /* GTMOAuth2SignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2SignIn.h; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 		82DEA7F319525D1C00C526FF = {
 			isa = PBXGroup;
 			children = (
+				828DE2411954C636008290BB /* README.md */,
 				82DEA7FE19525D1C00C526FF /* SecretHandshake */,
 				82F0AE1B1952A8D5003A1014 /* Frameworks */,
 				82DEA81B19525D1D00C526FF /* SecretHandshakeTests */,
@@ -342,6 +345,7 @@
 			files = (
 				82B2D03F1953717B004C6577 /* GTMOAuth2ViewTouch.xib in Resources */,
 				82DEA81119525D1C00C526FF /* Main.storyboard in Resources */,
+				828DE2421954C636008290BB /* README.md in Resources */,
 				82DEA81319525D1C00C526FF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
