@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class Event;
+
 @interface DetailViewController : UIViewController
 
-@property (strong, nonatomic) id detailItem;
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (strong, nonatomic) Event * event;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *batchLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+
 
 @end
 
