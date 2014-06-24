@@ -29,8 +29,6 @@
 @property (nonatomic, retain) NSTimer *currentTimer;
 @property (nonatomic, retain) MasterViewController *masterViewController;
 
-@property (nonatomic, retain) OAuthHandler *oauthHandler;
-
 - (void)getUserSignIn:(id)sender;
 - (void)authorizeFromExternalURL:(NSURL *)url;
 
@@ -125,23 +123,12 @@
 
 - (void)getUserSignIn:(id)sender
 {
-    if (self.oauthHandler == nil) {
-        self.oauthHandler = [[OAuthHandler alloc] init];
-        self.oauthHandler.delegate = self;
-    }
-    
-    [self.oauthHandler handleUserSignIn:nil];
+    [[OAuthHandler sharedHandler] handleUserSignIn:nil];
 }
 
 - (void)authorizeFromExternalURL:(NSURL *)url
 {
-    if (self.oauthHandler == nil) {
-        self.oauthHandler = [[OAuthHandler alloc] init];
-        self.oauthHandler.delegate = self;
-    }
-    
-    [self.oauthHandler handleAuthTokenURL:url];
-    
+    [[OAuthHandler sharedHandler] handleAuthTokenURL:url];
 }
 
 - (void)oauthHandlerDidAuthorize

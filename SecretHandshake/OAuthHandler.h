@@ -18,8 +18,7 @@
 
 @property (nonatomic, weak) id <OAuthHandlerDelegate> delegate;
 
-- (id)init;
-
++ (OAuthHandler *)sharedHandler;
 -(void)handleUserSignIn:(id)sender;
 -(void)handleAuthTokenURL:(NSURL *)url;
 

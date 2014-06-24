@@ -32,6 +32,17 @@
     return self;
 }
 
++ (OAuthHandler *)sharedHandler
+{
+    static OAuthHandler *_sharedHandler = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedHandler = [[OAuthHandler alloc] init];
+    });
+    
+    return _sharedHandler;
+}
+
 -(void)handleUserSignIn:(id)sender
 {
     // first, try to refresh token. if fails, then launch external sign-in.
