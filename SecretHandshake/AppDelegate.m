@@ -17,9 +17,6 @@
 #import "TestFlight.h"
 #import "TestFlight+ManualSessions.h"
 
-#import "GTMHTTPFetcher.h"
-#import "GTMOAuth2ViewControllerTouch.h"
-
 #import "OAuthHandler.h"
 
 @import CoreLocation;
@@ -59,9 +56,7 @@
     }
     
     [TestFlight setOptions:@{ TFOptionManualSessions : @YES }];
-    
     [TestFlight takeOff:@"5b09de90-f520-4781-bb58-09076761115f"];
-    
     [TestFlight manuallyStartSession];
     
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
@@ -88,9 +83,6 @@
     // secrethandshake://oauth?access_token=324235253442
     
     NSLog(@"url recieved: %@", url);
-    NSLog(@"query string: %@", [url query]);
-    NSLog(@"host: %@", [url host]);
-    NSLog(@"url path: %@", [url path]);
     
     if ([[url host] isEqualToString:@"oauth"]) {
         // parse the authentication code query
@@ -154,89 +146,13 @@
     
 }
 
-/*
-
-- (GTMOAuth2Authentication *)hackerSchoolAuth
-{
-    
-    // Set the token URL to the Singly token endpoint.
-    NSURL *tokenURL = [NSURL URLWithString:@"https://www.hackerschool.com/oauth/token"];
-    
-    // Set a bogus redirect URI. It won't actually be used as the redirect will
-    // be intercepted by the OAuth library and handled in the app.
-    NSString *redirectURI = @"secrethandshake://oauth";
-    
-    GTMOAuth2Authentication *auth;
-    auth = [GTMOAuth2Authentication authenticationWithServiceProvider:@"Secret Handshake"
-                                                             tokenURL:tokenURL
-                                                          redirectURI:redirectURI
-                                                             clientID:kMyClientID
-                                                         clientSecret:kMyClientSecret];
-    
-    // The Singly API does not return a token type, therefore we set one here to
-    // avoid a warning being thrown.
-    [auth setTokenType:@"HackerSchoolToken"];
-    
-    return auth;
-}
-
-- (void)authorize:(NSString *)service
-{
-    GTMOAuth2Authentication *auth = [self hackerSchoolAuth];
-    
-    // Prepare the Authorization URL.
-    NSURL *authURL = [NSURL URLWithString:@"https://www.hackerschool.com/oauth/authorize"];
-    
-    // Display the authentication view
-    GTMOAuth2ViewControllerTouch *viewController;
-    viewController = [ [GTMOAuth2ViewControllerTouch alloc] initWithAuthentication:auth
-                                                                  authorizationURL:authURL
-                                                                  keychainItemName:nil
-                                                                          delegate:self
-                                                                  finishedSelector:@selector(viewController:finishedWithAuth:error:)];
-    [viewController setBrowserCookiesURL:[NSURL URLWithString:@"https://www.hackerschool.com/"]];
-    [viewController.navigationItem setHidesBackButton:YES];
-    [viewController.navigationItem setTitle:@"Secret Handshake"];
-    
-    // Push the authentication view to our navigation controller instance
-    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    [ navigationController pushViewController:viewController animated:YES];
-}
- - (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
- finishedWithAuth:(GTMOAuth2Authentication *)auth
- error:(NSError *)error
- {
- if (error != nil)
- {
- // Authentication failed
- UIAlertView *alertView = [ [UIAlertView alloc] initWithTitle:@"Authorization Failed"
- message:[error localizedDescription]
- delegate:self
- cancelButtonTitle:@"Dismiss"
- otherButtonTitles:nil];
- [alertView show];
- }
- else
- {
- // Authentication succeeded
- 
- // Save the access token
- 
- [[NSUserDefaults standardUserDefaults] setObject:auth.accessToken forKey:kSHAccessTokenKey];
- 
- [self downloadMyProfile:nil];
- }
- }
-
- */
-
-- (void)oauthHandlerDidAuthorizeWithAuth:(GTMOAuth2Authentication *)auth
+- (void)oauthHandlerDidAuthorizeWithToken:(NSString *)token
 {
     // Authentication succeeded
     
     // Save the access token
     
-    [[NSUserDefaults standardUserDefaults] setObject:auth.accessToken forKey:kSHAccessTokenKey];
+    [[NSUserDefaults standardUserDefaults] setObject:token forKey:kSHAccessTokenKey];
     
     [self downloadMyProfile:nil];
 }
@@ -459,30 +375,6 @@
     self.lastUserID = nil;
 }
 
-/*
- -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
- CLBeacon *beacon = [[CLBeacon alloc] init];
- beacon = [beacons lastObject];
- 
- NSString *distanceString = @"";
- if (beacon.proximity == CLProximityUnknown) {
- distanceString = @"Unknown Proximity";
- } else if (beacon.proximity == CLProximityImmediate) {
- distanceString = @"Immediate";
- } else if (beacon.proximity == CLProximityNear) {
- distanceString = @"Near";
- } else if (beacon.proximity == CLProximityFar) {
- distanceString = @"Far";
- }
- 
- UILocalNotification *notification = [[UILocalNotification alloc] init];
- notification.alertBody = [NSString stringWithFormat: @"Found Hacker Schooler! %@ %@", beacon.minor, distanceString];
- notification.soundName = @"Default";
- [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
- 
- }
- */
-
 - (void)initRegion
 {
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"3ee761a0-f737-11e3-a3ac-0800200c9a66"];
@@ -544,29 +436,7 @@
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-         
-         Typical reasons for an error here include:
-         * The persistent store is not accessible;
-         * The schema for the persistent store is incompatible with current managed object model.
-         Check the error message to determine what the actual problem was.
-         
-         
-         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-         
-         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-         * Simply deleting the existing store:
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-         
-         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
-         
-         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         
-         */
+
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }    

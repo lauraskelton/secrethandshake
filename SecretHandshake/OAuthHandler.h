@@ -10,7 +10,7 @@
 
 @class GTMOAuth2Authentication;
 @protocol OAuthHandlerDelegate <NSObject>
-- (void)oauthHandlerDidAuthorizeWithAuth:(GTMOAuth2Authentication *)auth;
+- (void)oauthHandlerDidAuthorizeWithToken:(NSString *)token;
 - (void)oauthHandlerDidFailWithError:(NSString *)errorMessage;
 @end
 
