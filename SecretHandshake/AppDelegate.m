@@ -240,86 +240,92 @@
         
         if ([beacon.minor integerValue] > 0) {
             NSLog(@"beacon: %@", beacon);
-#warning alter here for same-person pings
-
             if (([self.lastUserID integerValue] != [beacon.minor integerValue]) && ([beacon.minor integerValue] != [[[NSUserDefaults standardUserDefaults] objectForKey:kSHUserIDKey] integerValue]) && ([beacon.minor integerValue] > 0)) {
 
-                NSLog(@"did range beacon: %@", beacon);
-                
-                NSURL *profilesURL = [NSURL URLWithString:[NSString stringWithFormat: @"https://www.hackerschool.com/api/v1/people/%@?access_token=%@", beacon.minor,[[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]]];
-                NSURLRequest *request = [NSURLRequest requestWithURL:profilesURL];
-                
-                [NSURLConnection sendAsynchronousRequest:request
-                                                   queue:[NSOperationQueue mainQueue]
-                                       completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                                           
-                   NSString *responseBody = [ [NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                           
-                                           NSLog(@"response: %@", responseBody);
-                   
-                   NSData *jsonData = [responseBody dataUsingEncoding:NSUTF8StringEncoding];
-                   NSError *e;
-                   NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&e];
-                   
-                   if (e != nil) {
-                       NSLog(@"error: %@", e);
-                   } else {
-                       if ([jsonDict objectForKey:@"message"] != nil) {
-                           if ([[jsonDict objectForKey:@"message"] isEqualToString:@"unauthorized"]) {
-                               [self getUserSignIn:nil];
-                           } else {
-                               NSLog(@"error message from HS api: %@", [jsonDict objectForKey:@"message"]);
-                           }
-                       }
-                        else {
-                            [TestFlight passCheckpoint:@"FOUND_HACKER_SCHOOLER"];
-
-                           // add new hacker schooler to core data
-                           HackerSchooler *thisHackerSchooler = [HackerSchooler hackerSchoolerWithUniqueUserID:[jsonDict objectForKey:@"id"] andFirstName:[jsonDict objectForKey:@"first_name"] andLastName:[jsonDict objectForKey:@"last_name"] andBatch:[[jsonDict objectForKey:@"batch"] objectForKey:@"name"] inManagedObjectContext:self.managedObjectContext];
-                           
-                           thisHackerSchooler.photoURL = [jsonDict objectForKey:@"image"];
-                           
-                           // add this event to core data
-                           if (thisHackerSchooler.lastEventTime != nil) {
-                               NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:thisHackerSchooler.lastEventTime];
-                               double secondsInAnHour = 3600.0;
-                               CGFloat hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
-#warning alter here for more frequent alerts
-                               if (hoursBetweenDates > 1.0) {
-                                   // record this as a new event
-                                   [self addEventWithHackerSchooler:thisHackerSchooler andBeacon:beacon];
-                               }
-                           } else {
-                               // record this as a new event
-                               [self addEventWithHackerSchooler:thisHackerSchooler andBeacon:beacon];
-                           }
-                           thisHackerSchooler = nil;
-                           [self saveContext];
-                       }
-                   }
-                   
-               }];
-                [self markCurrentUserID:beacon.minor];
+                [self downloadUserProfileWithID:beacon.minor andProximity:beacon.proximity];
   
             }
         }
     }
 }
 
--(void)addEventWithHackerSchooler:(HackerSchooler *)hackerSchooler andBeacon:(CLBeacon *)beacon
+-(void)downloadUserProfileWithID:(NSNumber *)userID andProximity:(CLProximity)proximity
+{
+    NSURL *profilesURL = [NSURL URLWithString:[NSString stringWithFormat: @"https://www.hackerschool.com/api/v1/people/%@?access_token=%@", userID,[[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:profilesURL];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               
+                               NSString *responseBody = [ [NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                               
+                               NSLog(@"response: %@", responseBody);
+                               
+                               NSData *jsonData = [responseBody dataUsingEncoding:NSUTF8StringEncoding];
+                               NSError *e;
+                               NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&e];
+                               
+                               if (e != nil) {
+                                   NSLog(@"error: %@", e);
+                               } else {
+                                   if ([jsonDict objectForKey:@"message"] != nil) {
+                                       if ([[jsonDict objectForKey:@"message"] isEqualToString:@"unauthorized"]) {
+                                           [self getUserSignIn:nil];
+                                       } else {
+                                           NSLog(@"error message from HS api: %@", [jsonDict objectForKey:@"message"]);
+                                       }
+                                   }
+                                   else {
+                                       [self recordHackerSchoolerSightingWithProfile:jsonDict andProximity:proximity];
+                                   }
+                               }
+                               
+                           }];
+    [self markCurrentUserID:userID];
+}
+
+-(void)recordHackerSchoolerSightingWithProfile:(NSDictionary *)profile andProximity:(CLProximity)proximity
+{
+    [TestFlight passCheckpoint:@"FOUND_HACKER_SCHOOLER"];
+    
+    // add new hacker schooler to core data
+    HackerSchooler *thisHackerSchooler = [HackerSchooler hackerSchoolerWithUniqueUserID:[profile objectForKey:@"id"] andFirstName:[profile objectForKey:@"first_name"] andLastName:[profile objectForKey:@"last_name"] andBatch:[[profile objectForKey:@"batch"] objectForKey:@"name"] inManagedObjectContext:self.managedObjectContext];
+    
+    thisHackerSchooler.photoURL = [profile objectForKey:@"image"];
+    
+    // add this event to core data
+    if (thisHackerSchooler.lastEventTime != nil) {
+        NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:thisHackerSchooler.lastEventTime];
+        double secondsInAnHour = 3600.0;
+        CGFloat hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
+#warning alter here for more frequent alerts
+        if (hoursBetweenDates > 1.0) {
+            // record this as a new event
+            [self addEventWithHackerSchooler:thisHackerSchooler andProximity:proximity];
+        }
+    } else {
+        // record this as a new event
+        [self addEventWithHackerSchooler:thisHackerSchooler andProximity:proximity];
+    }
+    thisHackerSchooler = nil;
+    [self saveContext];
+}
+
+-(void)addEventWithHackerSchooler:(HackerSchooler *)hackerSchooler andProximity:(CLProximity)proximity
 {
     Event *newEvent = [Event createEventWithHackerSchooler:hackerSchooler inManagedObjectContext:self.managedObjectContext];
     [hackerSchooler addEventsObject:newEvent];
     newEvent = nil;
     
     NSString *distanceString = @"";
-    if (beacon.proximity == CLProximityUnknown) {
+    if (proximity == CLProximityUnknown) {
         distanceString = @"Unknown Proximity";
-    } else if (beacon.proximity == CLProximityImmediate) {
+    } else if (proximity == CLProximityImmediate) {
         distanceString = @"Immediate";
-    } else if (beacon.proximity == CLProximityNear) {
+    } else if (proximity == CLProximityNear) {
         distanceString = @"Near";
-    } else if (beacon.proximity == CLProximityFar) {
+    } else if (proximity == CLProximityFar) {
         distanceString = @"Far";
     }
     

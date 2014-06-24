@@ -59,18 +59,12 @@
 
 -(void)refreshToken:(id)sender
 {
-    NSLog(@"refreshing token");
-    
     NSURL *tokenURL = [NSURL URLWithString:@"https://www.hackerschool.com/oauth/token"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:tokenURL];
     
     [request setHTTPMethod:@"POST"];
     NSString *postString = [NSString stringWithFormat:@"grant_type=refresh_token&client_id=%@&client_secret=%@&refresh_token=%@", kMyClientID, kMyClientSecret, [[NSUserDefaults standardUserDefaults] objectForKey:kSHRefreshTokenKey]];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    NSLog(@"refresh token request: %@", request);
-    
-    NSLog(@"refresh token request body: %@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
