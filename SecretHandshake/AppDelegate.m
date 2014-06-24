@@ -20,9 +20,11 @@
 #import "GTMHTTPFetcher.h"
 #import "GTMOAuth2ViewControllerTouch.h"
 
+#import "OAuthHandler.h"
+
 @import CoreLocation;
 
-@interface AppDelegate () <CLLocationManagerDelegate>
+@interface AppDelegate () <CLLocationManagerDelegate, OAuthHandlerDelegate>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLBeaconRegion *beaconRegion;
@@ -30,8 +32,11 @@
 @property (nonatomic, retain) NSTimer *currentTimer;
 @property (nonatomic, retain) MasterViewController *masterViewController;
 
-- (void)authorize:(NSString *)service;
-- (GTMOAuth2Authentication *)hackerSchoolAuth;
+@property (nonatomic, retain) OAuthHandler *oauthHandler;
+
+- (void)getUserSignIn:(id)sender;
+- (void)authorizeFromExternalURL:(NSURL *)url;
+
 -(void)downloadMyProfile:(id)sender;
 
 - (void)initRegion;
@@ -67,7 +72,8 @@
     self.locationManager.delegate = self;
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey] == nil) {
-        [self authorize:nil];
+        //[self authorize:nil];
+        [self getUserSignIn:nil];
     } else {
         [self downloadMyProfile:nil];
         [self initRegion];
@@ -76,6 +82,24 @@
     
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    // secrethandshake://oauth?access_token=324235253442
+    
+    NSLog(@"url recieved: %@", url);
+    NSLog(@"query string: %@", [url query]);
+    NSLog(@"host: %@", [url host]);
+    NSLog(@"url path: %@", [url path]);
+    
+    if ([[url host] isEqualToString:@"oauth"]) {
+        // parse the authentication code query
+        [self authorizeFromExternalURL:url];
+    }
+    
+    return YES;
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -107,6 +131,30 @@
 }
 
 #pragma mark - OAuth methods
+
+- (void)getUserSignIn:(id)sender
+{
+    NSLog(@"getting user sign in");
+    
+    //NSURL *authURL = [NSURL URLWithString:@"http://www.beerchooser.com/hackerschool/OAuth2/oauthios.php"];
+    
+    NSURL *authURL = [NSURL URLWithString:@"http://secrethandshakeapp.com/auth.php"];
+
+    [[UIApplication sharedApplication] openURL:authURL];
+}
+
+- (void)authorizeFromExternalURL:(NSURL *)url
+{
+    
+    self.oauthHandler = [[OAuthHandler alloc] init];
+    
+    self.oauthHandler.delegate = self;
+    
+    [self.oauthHandler handleAuthTokenURL:url];
+    
+}
+
+/*
 
 - (GTMOAuth2Authentication *)hackerSchoolAuth
 {
@@ -154,31 +202,55 @@
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     [ navigationController pushViewController:viewController animated:YES];
 }
+ - (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
+ finishedWithAuth:(GTMOAuth2Authentication *)auth
+ error:(NSError *)error
+ {
+ if (error != nil)
+ {
+ // Authentication failed
+ UIAlertView *alertView = [ [UIAlertView alloc] initWithTitle:@"Authorization Failed"
+ message:[error localizedDescription]
+ delegate:self
+ cancelButtonTitle:@"Dismiss"
+ otherButtonTitles:nil];
+ [alertView show];
+ }
+ else
+ {
+ // Authentication succeeded
+ 
+ // Save the access token
+ 
+ [[NSUserDefaults standardUserDefaults] setObject:auth.accessToken forKey:kSHAccessTokenKey];
+ 
+ [self downloadMyProfile:nil];
+ }
+ }
 
-- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
-      finishedWithAuth:(GTMOAuth2Authentication *)auth
-                 error:(NSError *)error
+ */
+
+- (void)oauthHandlerDidAuthorizeWithAuth:(GTMOAuth2Authentication *)auth
 {
-    if (error != nil)
-    {
-        // Authentication failed
-        UIAlertView *alertView = [ [UIAlertView alloc] initWithTitle:@"Authorization Failed"
-                                                             message:[error localizedDescription]
-                                                            delegate:self
-                                                   cancelButtonTitle:@"Dismiss"
-                                                   otherButtonTitles:nil];
-        [alertView show];
-    }
-    else
-    {
-        // Authentication succeeded
-        
-        // Save the access token
-        
-        [[NSUserDefaults standardUserDefaults] setObject:auth.accessToken forKey:kSHAccessTokenKey];
+    // Authentication succeeded
+    
+    // Save the access token
+    
+    [[NSUserDefaults standardUserDefaults] setObject:auth.accessToken forKey:kSHAccessTokenKey];
+    
+    [self downloadMyProfile:nil];
+}
 
-        [self downloadMyProfile:nil];
-    }
+- (void)oauthHandlerDidFailWithError:(NSString *)errorMessage
+{
+    // Authentication failed
+    UIAlertView *alertView = [ [UIAlertView alloc] initWithTitle:@"Authorization Failed"
+                                                         message:errorMessage
+                                                        delegate:self
+                                               cancelButtonTitle:@"Dismiss"
+                                               otherButtonTitles:nil];
+    [alertView show];
+
 }
 
 -(void)downloadMyProfile:(id)sender
@@ -205,7 +277,8 @@
                                    NSLog(@"JSON Response My Profile: %@", jsonDict);
                                    if ([jsonDict objectForKey:@"message"] != nil) {
                                        if ([[jsonDict objectForKey:@"message"] isEqualToString:@"unauthorized"]) {
-                                           [self authorize:nil];
+                                           //[self authorize:nil];
+                                           [self getUserSignIn:nil];
                                        } else {
                                            NSLog(@"error message from HS api: %@", [jsonDict objectForKey:@"message"]);
                                        }
@@ -274,7 +347,6 @@
 #warning alter here for same-person pings
 
             if (([self.lastUserID integerValue] != [beacon.minor integerValue]) && ([beacon.minor integerValue] != [[[NSUserDefaults standardUserDefaults] objectForKey:kSHUserIDKey] integerValue]) && ([beacon.minor integerValue] > 0)) {
-            //if (([beacon.minor integerValue] > 0)) {
 
                 NSLog(@"did range beacon: %@", beacon);
                 
@@ -298,7 +370,8 @@
                    } else {
                        if ([jsonDict objectForKey:@"message"] != nil) {
                            if ([[jsonDict objectForKey:@"message"] isEqualToString:@"unauthorized"]) {
-                               [self authorize:nil];
+                               //[self authorize:nil];
+                               [self getUserSignIn:nil];
                            } else {
                                NSLog(@"error message from HS api: %@", [jsonDict objectForKey:@"message"]);
                            }

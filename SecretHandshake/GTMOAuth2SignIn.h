@@ -119,6 +119,8 @@
           webRequestSelector:(SEL)webRequestSelector
             finishedSelector:(SEL)finishedSelector;
 
+-(void)handleExternalTokenQueryString:(NSURL *)url;
+
 // A default authentication object for signing in to Google services
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
 + (GTMOAuth2Authentication *)standardGoogleAuthenticationForScope:(NSString *)scope
