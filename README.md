@@ -20,7 +20,7 @@ Beta Testing
 ===========
 So far it seems to be working well, but I definitely need beta testing help from some other Hacker School folks who wouldn’t mind giving some feedback. I have it up on TestFlight if you have an iPhone and time to test it out! http://tflig.ht/1stcVLG
 
-Source Code for Server OAuth Handler
+Server OAuth Handler
 ===========
 
 ```php
