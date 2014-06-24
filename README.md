@@ -28,12 +28,14 @@ Source Code for Server OAuth Handler
 <?php
     
     /**
-     * getAuthenticationUrl
+     * Server OAuth Handler for iOS App
      *
-     * @param string $auth_endpoint Url of the authentication endpoint
-     * @param string $redirect_uri  Redirection URI
-     * @param array  $extra_parameters  Array of extra parameters like scope or state (Ex: array('scope' => null, 'state' => ''))
-     * @return string URL used for authentication
+     * iOS App launches Safari to this page on SecretHandshake server
+     * This page sends the user to the Hacker School login page to get authorization code
+     * It takes the auth code and sends it back to the server to get an access token
+     * It redirects the user back to the app via a custom URL scheme
+     * and sends the access and refresh tokens as query parameters to the app
+     * which stores them for future use.
      */
     function getAuthenticationUrl($auth_endpoint, $client_id, $redirect_uri)
     {
@@ -44,15 +46,7 @@ Source Code for Server OAuth Handler
                                         );
         return $auth_endpoint . '?' . http_build_query($parameters, null, '&');
     }
-    
-    /**
-     * getAccessToken
-     *
-     * @param string $token_endpoint    Url of the token endpoint
-     * @param int    $grant_type        Grant Type ('authorization_code', 'password', 'client_credentials', 'refresh_token', or a custom code (@see GrantType Classes)
-     * @param array  $parameters        Array sent to the server (depend on which grant type you're using)
-     * @return array Array of parameters required by the grant_type (CF SPEC)
-     */
+
     function getAccessToken($token_endpoint, $grant_type, array $parameters, $client_id, $client_secret)
     {
         $parameters['grant_type'] = $grant_type;
@@ -103,7 +97,6 @@ Source Code for Server OAuth Handler
         $info = json_decode($response, true);
         $querystring = http_build_query($info);
         $appurl = 'secrethandshake://oauth' . '?' . $querystring;
-        //echo $appurl;
         header('Location: ' . $appurl);
         die('Redirect');
         
