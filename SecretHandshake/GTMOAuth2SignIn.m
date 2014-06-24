@@ -89,71 +89,9 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
 
 @synthesize networkLossTimeoutInterval = networkLossTimeoutInterval_;
 
-#if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
-+ (NSURL *)googleAuthorizationURL {
-  NSString *str = @"https://accounts.google.com/o/oauth2/auth";
-  return [NSURL URLWithString:str];
-}
-
-+ (NSURL *)googleTokenURL {
-  NSString *str = @"https://accounts.google.com/o/oauth2/token";
-  return [NSURL URLWithString:str];
-}
-
-+ (NSURL *)googleRevocationURL {
-  NSString *urlStr = @"https://accounts.google.com/o/oauth2/revoke";
-  return [NSURL URLWithString:urlStr];
-}
-
-+ (NSURL *)googleUserInfoURL {
-  NSString *urlStr = @"https://www.googleapis.com/oauth2/v3/userinfo";
-  return [NSURL URLWithString:urlStr];
-}
-#endif
-
 + (NSString *)nativeClientRedirectURI {
   return kOOBString;
 }
-
-#if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
-+ (GTMOAuth2Authentication *)standardGoogleAuthenticationForScope:(NSString *)scope
-                                                         clientID:(NSString *)clientID
-                                                     clientSecret:(NSString *)clientSecret {
-  NSString *redirectURI = [self nativeClientRedirectURI];
-  NSURL *tokenURL = [self googleTokenURL];
-
-  GTMOAuth2Authentication *auth;
-  auth = [GTMOAuth2Authentication authenticationWithServiceProvider:kGTMOAuth2ServiceProviderGoogle
-                                                           tokenURL:tokenURL
-                                                        redirectURI:redirectURI
-                                                           clientID:clientID
-                                                       clientSecret:clientSecret];
-  auth.scope = scope;
-
-  return auth;
-}
-
-- (void)addScopeForGoogleUserInfo {
-  GTMOAuth2Authentication *auth = self.authentication;
-  if (self.shouldFetchGoogleUserEmail) {
-    NSString *const emailScope = @"https://www.googleapis.com/auth/userinfo.email";
-    NSString *scope = auth.scope;
-    if ([scope rangeOfString:emailScope].location == NSNotFound) {
-      scope = [GTMOAuth2Authentication scopeWithStrings:scope, emailScope, nil];
-      auth.scope = scope;
-    }
-  }
-
-  if (self.shouldFetchGoogleUserProfile) {
-    NSString *const profileScope = @"https://www.googleapis.com/auth/userinfo.profile";
-    NSString *scope = auth.scope;
-    if ([scope rangeOfString:profileScope].location == NSNotFound) {
-      scope = [GTMOAuth2Authentication scopeWithStrings:scope, profileScope, nil];
-      auth.scope = scope;
-    }
-  }
-}
-#endif
 
 - (id)initWithAuthentication:(GTMOAuth2Authentication *)auth
             authorizationURL:(NSURL *)authorizationURL
@@ -176,14 +114,6 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
     webRequestSelector_ = webRequestSelector;
     finishedSelector_ = finishedSelector;
 
-    // for Google authentication, we want to automatically fetch user info
-#if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
-    NSString *host = [authorizationURL host];
-    if ([host hasSuffix:@".google.com"]) {
-      shouldFetchGoogleUserEmail_ = YES;
-    }
-#endif
-
     // default timeout for a lost internet connection while the server
     // UI is displayed is 30 seconds
     networkLossTimeoutInterval_ = kDefaultNetworkLossTimeoutInterval;
@@ -199,9 +129,6 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   [additionalAuthorizationParameters_ release];
   [delegate_ release];
   [pendingFetcher_ release];
-#if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
-  [userProfile_ release];
-#endif
   [userData_ release];
 
   [super dealloc];
@@ -233,9 +160,6 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
 - (BOOL)startSigningIn {
   // For signing in to Google, append the scope for obtaining the authenticated
   // user email and profile, as appropriate
-#if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
-  [self addScopeForGoogleUserInfo];
-#endif
 
   // start the authorization
   return [self startWebRequest];
@@ -395,7 +319,11 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
 
   // try to get the access code
   if (!self.hasHandledCallback) {
+#warning could we send the callback in app query string straight to this function to parse?
     NSString *responseStr = [[redirectedRequest URL] query];
+      
+#warning set keys for response dictionary to handle access code
+
     [self.authentication setKeysForResponseString:responseStr];
 
 #if DEBUG
@@ -408,6 +336,12 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   }
   // tell the delegate that we did handle this request
   return YES;
+}
+
+-(void)handleExternalTokenQueryString:(NSURL *)url
+{
+    NSString *responseStr = [url query];
+    [self.authentication setKeysForResponseString:responseStr];
 }
 
 // entry point for the window controller to tell us when a new page title has
@@ -495,6 +429,7 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
 
   NSError *error = nil;
 
+#warning use the auth code to get a token
   GTMOAuth2Authentication *auth = self.authentication;
   NSString *code = auth.code;
   if ([code length] > 0) {
@@ -704,6 +639,7 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   if (delegate_ && finishedSelector_) {
     GTMOAuth2Authentication *auth = self.authentication;
 
+#warning get access token here
     NSMethodSignature *sig = [delegate_ methodSignatureForSelector:finishedSelector_];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
     [invocation setSelector:finishedSelector_];

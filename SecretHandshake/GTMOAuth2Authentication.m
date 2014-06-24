@@ -294,6 +294,7 @@ finishedRefreshWithFetcher:(GTMHTTPFetcher *)fetcher
 
 #pragma mark -
 
+#warning set query string token keys here
 - (void)setKeysForResponseDictionary:(NSDictionary *)dict {
   if (dict == nil) return;
 
@@ -930,6 +931,7 @@ finishedRefreshWithFetcher:(GTMHTTPFetcher *)fetcher
 
     if (hasData) {
       if (isResponseJSON) {
+#warning set token query string data here
         [self setKeysForResponseJSONData:data];
       } else {
         // Support for legacy token servers that return form-urlencoded data
