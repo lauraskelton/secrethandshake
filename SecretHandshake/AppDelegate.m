@@ -127,9 +127,7 @@
 - (void)getUserSignIn:(id)sender
 {
     NSLog(@"getting user sign in");
-    
-    //NSURL *authURL = [NSURL URLWithString:@"http://www.beerchooser.com/hackerschool/OAuth2/oauthios.php"];
-    
+        
     NSURL *authURL = [NSURL URLWithString:@"http://secrethandshakeapp.com/auth.php"];
 
     [[UIApplication sharedApplication] openURL:authURL];
@@ -137,22 +135,18 @@
 
 - (void)authorizeFromExternalURL:(NSURL *)url
 {
-    
-    self.oauthHandler = [[OAuthHandler alloc] init];
-    
-    self.oauthHandler.delegate = self;
+    if (self.oauthHandler == nil) {
+        self.oauthHandler = [[OAuthHandler alloc] init];
+        self.oauthHandler.delegate = self;
+    }
     
     [self.oauthHandler handleAuthTokenURL:url];
     
 }
 
-- (void)oauthHandlerDidAuthorizeWithToken:(NSString *)token
+- (void)oauthHandlerDidAuthorize
 {
     // Authentication succeeded
-    
-    // Save the access token
-    
-    [[NSUserDefaults standardUserDefaults] setObject:token forKey:kSHAccessTokenKey];
     
     [self downloadMyProfile:nil];
 }
