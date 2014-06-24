@@ -37,6 +37,7 @@ Server OAuth Handler
      * and sends the access and refresh tokens as query parameters to the app
      * which stores them for future use.
      */
+     
     function getAuthenticationUrl($auth_endpoint, $client_id, $redirect_uri)
     {
         $parameters = array(
