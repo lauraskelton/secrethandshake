@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Laura Skelton. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class GTMOAuth2Authentication;
 @protocol OAuthHandlerDelegate <NSObject>
@@ -18,11 +18,9 @@
 
 @property (nonatomic, weak) id <OAuthHandlerDelegate> delegate;
 
-@property (nonatomic, retain) NSURL *authURL;
-
 - (id)init;
 
+-(void)handleUserSignIn:(id)sender;
 -(void)handleAuthTokenURL:(NSURL *)url;
--(void)refreshToken:(id)sender;
 
 @end

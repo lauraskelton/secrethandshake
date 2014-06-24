@@ -65,9 +65,8 @@
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-    
+
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey] == nil) {
-        //[self authorize:nil];
         [self getUserSignIn:nil];
     } else {
         [self downloadMyProfile:nil];
@@ -126,11 +125,12 @@
 
 - (void)getUserSignIn:(id)sender
 {
-    NSLog(@"getting user sign in");
-        
-    NSURL *authURL = [NSURL URLWithString:@"http://secrethandshakeapp.com/auth.php"];
-
-    [[UIApplication sharedApplication] openURL:authURL];
+    if (self.oauthHandler == nil) {
+        self.oauthHandler = [[OAuthHandler alloc] init];
+        self.oauthHandler.delegate = self;
+    }
+    
+    [self.oauthHandler handleUserSignIn:nil];
 }
 
 - (void)authorizeFromExternalURL:(NSURL *)url
@@ -187,7 +187,6 @@
                                    NSLog(@"JSON Response My Profile: %@", jsonDict);
                                    if ([jsonDict objectForKey:@"message"] != nil) {
                                        if ([[jsonDict objectForKey:@"message"] isEqualToString:@"unauthorized"]) {
-                                           //[self authorize:nil];
                                            [self getUserSignIn:nil];
                                        } else {
                                            NSLog(@"error message from HS api: %@", [jsonDict objectForKey:@"message"]);
@@ -280,7 +279,6 @@
                    } else {
                        if ([jsonDict objectForKey:@"message"] != nil) {
                            if ([[jsonDict objectForKey:@"message"] isEqualToString:@"unauthorized"]) {
-                               //[self authorize:nil];
                                [self getUserSignIn:nil];
                            } else {
                                NSLog(@"error message from HS api: %@", [jsonDict objectForKey:@"message"]);
