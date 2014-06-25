@@ -34,8 +34,10 @@ If the user logs in and authorizes your app, the API will send a GET request to 
 Request an Access Token
 ------
 Second call to server to get Access Token, which you will use to sign each API request you make. Signing a request with a valid Access Token lets you access whatever the logged-in user has permission to access. This must be a POST request. Make a POST request to this URL in the background (no need to redirect the user to this page this time). Again, the things in parentheses should be replaced with your own client id, client secret, redirect URI, and the "code" the API just sent you for the user.
-URL: `https://www.hackerschool.com/oauth/token`
-POST Request Parameters: `grant_type=authorization_code&client_id=(my_client_id)&client_secret=(my_client_secret)&redirect_uri=(my_redirect_uri)&code=(the authorization code you just got from the GET request the API returned)`
+
+* URL: `https://www.hackerschool.com/oauth/token`
+
+* POST Request Parameters: `grant_type=authorization_code&client_id=(my_client_id)&client_secret=(my_client_secret)&redirect_uri=(my_redirect_uri)&code=(the authorization code you just got from the GET request the API returned)`
 
 This will return a JSON response that contains, among other things, the parameters `access_token` and `refresh_token`. There are other parameters, but these two are the most important for signing your API calls.
 
@@ -48,8 +50,10 @@ Every time you make a call to the API for that user, just sign the request with 
 Refreshing the Access Token
 ------
 Eventually (after 2 hours I believe), your Access Token will expire. Suddenly, instead of returning the JSON you were expecting, it will return JSON containing a "message" with the value "unauthorized". When this happens, it's time to try refreshing your access token. Just like getting the original Access Token, this needs to be a post request to the `oauth/token` URL, but with slightly different POST request parameters, since we are now using the Refresh Token to get the Access Token, instead of using the Authorization Code to get the Access Token.
-URL: `https://www.hackerschool.com/oauth/token`
-POST Request Parameters: `grant_type=refresh_token&client_id=(my_client_id)&client_secret=(my_client_secret)&redirect_uri=(my_redirect_uri)&refresh_token=(the refresh token for this user that you saved earlier)`
+
+* URL: `https://www.hackerschool.com/oauth/token`
+
+* POST Request Parameters: `grant_type=refresh_token&client_id=(my_client_id)&client_secret=(my_client_secret)&redirect_uri=(my_redirect_uri)&refresh_token=(the refresh token for this user that you saved earlier)`
 
 If this returns any kind of error (the API will return a JSON "error" if something's not properly authorized), I just have the user log in again.
 
