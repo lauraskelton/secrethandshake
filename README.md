@@ -60,7 +60,13 @@ Every time you make a call to the API for that user, just sign the request with 
 
 Refreshing the Access Token
 ------
-Eventually (after 2 hours I believe), your `access_token` will expire. Suddenly, instead of returning the JSON you were expecting, it will return JSON containing a `message` with the value `unauthorized`. When this happens, it's time to try refreshing your `access_token`. Just like getting the original `access_token`, this needs to be a POST request to the `oauth/token` URL, but with slightly different POST request parameters, since we are now using the `refresh_token` to get the `access_token`, instead of using the `code` to get the `access_token`.
+Eventually (after 2 hours I believe), your `access_token` will expire. Suddenly, instead of returning the JSON you were expecting, it will return JSON containing a `message` with the value `unauthorized`.
+
+```json
+{"message": "unauthorized"}
+```
+
+When this happens, it's time to try refreshing your `access_token`. Just like getting the original `access_token`, this needs to be a POST request to the `oauth/token` URL, but with slightly different POST request parameters, since we are now using the `refresh_token` to get the `access_token`, instead of using the `code` to get the `access_token`.
 
 * URL: `https://www.hackerschool.com/oauth/token`
 
