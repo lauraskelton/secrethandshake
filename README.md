@@ -55,7 +55,7 @@ Eventually (after 2 hours I believe), your `access_token` will expire. Suddenly,
 
 * POST Request Parameters: `grant_type=refresh_token&client_id=(my_client_id)&client_secret=(my_client_secret)&redirect_uri=(my_redirect_uri)&refresh_token=(the refresh token for this user that you saved earlier)`
 
-If this returns any kind of error (the API will return a JSON "error" if something's not properly authorized), I just have the user log in again.
+If this returns any kind of error (the API will return a JSON `error` if something's not properly authorized), I just have the user log in again.
 
 Because the login in my app redirects to the Safari browser, the user might already be logged in there, in which case they will be quickly redirected back to my app with the new `access_token` and `refresh_token` I need to sign their requests.
 
