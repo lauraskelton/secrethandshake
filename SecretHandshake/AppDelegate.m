@@ -299,7 +299,7 @@
         NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:thisHackerSchooler.lastEventTime];
         double secondsInAnHour = 3600.0;
         CGFloat hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
-#warning alter here for more frequent alerts
+#warning testing alter here for more frequent alerts
         if (hoursBetweenDates > 1.0) {
             // record this as a new event
             [self addEventWithHackerSchooler:thisHackerSchooler andProximity:proximity];
@@ -333,7 +333,7 @@
     
     // notify user of new event
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = @"Found Hacker Schooler!";
+    notification.alertBody = [NSString stringWithFormat:@"Found Hacker Schooler: %@ %@", hackerSchooler.first_name, hackerSchooler.last_name];
     notification.soundName = @"Default";
     [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 }
