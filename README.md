@@ -33,7 +33,7 @@ If the user logs in and authorizes your app, the API will send a GET request to 
 
 Request an Access Token
 ------
-Second call to server to get Access Token, which you will use to sign each API request you make. Signing a request with a valid Access Token lets you access whatever the logged-in user has permission to access. This must be a POST request. Make a POST request to this URL in the background (no need to redirect the user to this page this time). Again, the things in parentheses should be replaced with your own client id, client secret, redirect URI, and the "code" the API just sent you for the user.
+Second call to server to get Access Token, which you will use to sign each API request you make. Signing a request with a valid Access Token lets you access whatever the logged-in user has permission to access. This must be a POST request. Make a POST request to this URL in the background (no need to redirect the user to this page this time). Again, the things in parentheses should be replaced with your own client id, client secret, redirect URI, and the `code` the API just sent you for the user.
 
 * URL: `https://www.hackerschool.com/oauth/token`
 
