@@ -30,6 +30,7 @@ First call to server to get a `code`, which represents that user's login credent
 Tricks to keep in mind: the `redirect_uri` should be the same redirect that your app registered with the API when you got your `client_id` and `client_secret`. This is the URL that will need to process the returned `code` to request an `access_token` from the API in just a minute. The things in parentheses should be replaced with your `client_id` and your `redirect_uri`.
 
 If the user logs in and authorizes your app, the API will send a GET request to your redirect uri with a `code` parameter with the Authorization Code for that user. You'll use the `code` in the next step to request an `access_token` for that user.
+`(your-redirect-uri)?code=(some-authorization-code-for-this-user)`
 
 Request an Access Token
 ------
@@ -40,6 +41,14 @@ Second call to server to get `access_token`, which you will use to sign each API
 * POST Request Parameters: `grant_type=authorization_code&client_id=(my_client_id)&client_secret=(my_client_secret)&redirect_uri=(my_redirect_uri)&code=(the authorization code you just got from the GET request the API returned)`
 
 This will return a JSON response that contains, among other things, the parameters `access_token` and `refresh_token`. There are other parameters, but these two are the most important for signing your API calls.
+
+```json
+{"access_token": "some-access-token",
+"token_type": "bearer",
+"expires_in": 7200,
+"refresh_token": "some-refresh-token",
+"scope": "public"}
+```
 
 Save the `access_token` and `refresh_token` values somewhere persistent that you will be able to reuse for that user when your app launches in the future. In iOS, `NSUserDefaults` is a good place to store them.
 
