@@ -31,6 +31,7 @@ Tricks to keep in mind: the `redirect_uri` should be the same redirect that your
 
 If the user logs in and authorizes your app, the API will send a GET request to your redirect uri with a `code` parameter with the Authorization Code for that user. You'll use the `code` in the next step to request an `access_token` for that user.
 
+GET request the API returns:
 `(your-redirect-uri)?code=(some-authorization-code-for-this-user)`
 
 Request an Access Token
