@@ -53,7 +53,7 @@ Eventually (after 2 hours I believe), your `access_token` will expire. Suddenly,
 
 * URL: `https://www.hackerschool.com/oauth/token`
 
-* POST Request Parameters: `grant_type=refresh_token&client_id=(my_client_id)&client_secret=(my_client_secret)&redirect_uri=(my_redirect_uri)&refresh_token=(the refresh token for this user that you saved earlier)`
+* POST Request Parameters: `grant_type=refresh_token&client_id=(my_client_id)&client_secret=(my_client_secret)&refresh_token=(the refresh token for this user that you saved earlier)`
 
 If this returns any kind of error (the API will return a JSON `error` if something's not properly authorized), I just have the user log in again.
 

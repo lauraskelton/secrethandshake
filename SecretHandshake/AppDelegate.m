@@ -123,11 +123,13 @@
 
 - (void)getUserSignIn:(id)sender
 {
+    [OAuthHandler sharedHandler].delegate = self;
     [[OAuthHandler sharedHandler] handleUserSignIn:nil];
 }
 
 - (void)authorizeFromExternalURL:(NSURL *)url
 {
+    [OAuthHandler sharedHandler].delegate = self;
     [[OAuthHandler sharedHandler] handleAuthTokenURL:url];
 }
 
