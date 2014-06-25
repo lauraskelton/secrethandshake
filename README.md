@@ -58,6 +58,26 @@ Using the Access Token
 ------
 Every time you make a call to the API for that user, just sign the request with the `access_token`. You can even use a GET request to sign the call. For example: `https://www.hackerschool.com/api/v1/people/me?access_token=(your stored access token for this user)` will return a JSON string containing this user's profile info.
 
+It's probably better instead of passing the `access_token` in a GET request, to send it in the Authorization header.
+
+```
+Authorization: Bearer (my-access-token-here)
+```
+
+In Objective-C, this would look sort of like:
+
+```objc
+NSURL *profileURL = [NSURL URLWithString:@"https://www.hackerschool.com/api/v1/people/me"];
+NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:profileURL];
+[request setValue:[NSString stringWithFormat:@"Bearer %@", [[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]] forHTTPHeaderField:@"Authorization"];
+[NSURLConnection sendAsynchronousRequest:request
+                                    queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                                // handle request completion here
+                           }]
+```
+
+
 Refreshing the Access Token
 ------
 Eventually (after 2 hours I believe), your `access_token` will expire. Suddenly, instead of returning the JSON you were expecting, it will return JSON containing a `message` with the value `unauthorized`.

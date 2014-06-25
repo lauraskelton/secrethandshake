@@ -154,9 +154,10 @@
 
 -(void)downloadMyProfile:(id)sender
 {
-    
-    NSURL *profilesURL = [NSURL URLWithString:[@"https://www.hackerschool.com/api/v1/people/me?access_token=" stringByAppendingString:[[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:profilesURL];
+    NSURL *profilesURL = [NSURL URLWithString:@"https://www.hackerschool.com/api/v1/people/me"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:profilesURL];
+    [request setValue:[NSString stringWithFormat:@"Bearer %@", [[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]] forHTTPHeaderField:@"Authorization"];
+
     
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
@@ -253,8 +254,9 @@
 
 -(void)downloadUserProfileWithID:(NSNumber *)userID andProximity:(CLProximity)proximity
 {
-    NSURL *profilesURL = [NSURL URLWithString:[NSString stringWithFormat: @"https://www.hackerschool.com/api/v1/people/%@?access_token=%@", userID,[[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:profilesURL];
+    NSURL *profilesURL = [NSURL URLWithString:[NSString stringWithFormat: @"https://www.hackerschool.com/api/v1/people/%@", userID]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:profilesURL];
+    [request setValue:[NSString stringWithFormat:@"Bearer %@", [[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]] forHTTPHeaderField:@"Authorization"];
     
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
