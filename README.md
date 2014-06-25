@@ -27,7 +27,7 @@ Get an Authorization Code
 First call to server to get a `code`, which represents that user's login credentials with the API. This is a GET request. Send the user to this url to log in and authorize your app to use their account:
 `https://www.hackerschool.com/oauth/authorize?response_type=code&client_id=(my_client_id)&redirect_uri=(my_redirect_uri)`
 
-Tricks to keep in mind: the redirect should be the same redirect that your app registered with the API when you got your `client_id` and `client_secret`. This is the URL that will need to process the returned `code` to request an `access_token` from the API in just a minute. The things in parentheses should be replaced with your `client_id` and your `redirect_uri`.
+Tricks to keep in mind: the `redirect_uri` should be the same redirect that your app registered with the API when you got your `client_id` and `client_secret`. This is the URL that will need to process the returned `code` to request an `access_token` from the API in just a minute. The things in parentheses should be replaced with your `client_id` and your `redirect_uri`.
 
 If the user logs in and authorizes your app, the API will send a GET request to your redirect uri with a `code` parameter with the Authorization Code for that user. You'll use the `code` in the next step to request an `access_token` for that user.
 
