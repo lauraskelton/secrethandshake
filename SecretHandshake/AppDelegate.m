@@ -68,8 +68,8 @@
         [self getUserSignIn:nil];
     } else {
         [self downloadMyProfile:nil];
-        [self initRegion];
-        [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+        //[self initRegion];
+        //[self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
     }
     
     return YES;
@@ -85,6 +85,7 @@
         // parse the authentication code query
         [self authorizeFromExternalURL:url];
     }
+    NSLog(@"location manager: %@", self.locationManager);
     
     return YES;
 }
@@ -136,8 +137,11 @@
 - (void)oauthHandlerDidAuthorize
 {
     // Authentication succeeded
-    
+    NSLog(@"did authorize");
     [self downloadMyProfile:nil];
+    //[self initRegion];
+    //[self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+
 }
 
 - (void)oauthHandlerDidFailWithError:(NSString *)errorMessage
@@ -154,6 +158,7 @@
 
 -(void)downloadMyProfile:(id)sender
 {
+    NSLog(@"downloading profile");
     NSURL *profilesURL = [NSURL URLWithString:@"https://www.hackerschool.com/api/v1/people/me"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:profilesURL];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", [[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]] forHTTPHeaderField:@"Authorization"];
@@ -212,7 +217,8 @@
                                        [alertView show];
                                        
                                        [self initRegion];
-                                       [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+                                       //[self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+                                       
                                    }
                                }
                                
@@ -235,12 +241,18 @@
     }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"location manager failed: %@", error);
+}
+
 - (void)locationManager:(CLLocationManager *)manager
         didRangeBeacons:(NSArray *)beacons
                inRegion:(CLBeaconRegion *)region
 {
+    NSLog(@"did range beacons");
     for (CLBeacon *beacon in beacons) {
-        
+        NSLog(@"found beacon: %@", beacon);
         if ([beacon.minor integerValue] > 0) {
             NSLog(@"beacon: %@", beacon);
             if (([self.lastUserID integerValue] != [beacon.minor integerValue]) && ([beacon.minor integerValue] != [[[NSUserDefaults standardUserDefaults] objectForKey:kSHUserIDKey] integerValue]) && ([beacon.minor integerValue] > 0)) {
@@ -340,6 +352,7 @@
     notification.alertBody = [NSString stringWithFormat:@"Found Hacker Schooler: %@ %@", hackerSchooler.first_name, hackerSchooler.last_name];
     notification.soundName = @"Default";
     [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    NSLog(@"hacker schooler found: %@", hackerSchooler.first_name);
 }
 
 -(void)markCurrentUserID:(NSNumber *)userID
@@ -366,10 +379,15 @@
 
 - (void)initRegion
 {
+    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [self.locationManager requestAlwaysAuthorization];
+    }
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"3ee761a0-f737-11e3-a3ac-0800200c9a66"];
     self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"region42"];
     self.beaconRegion.notifyEntryStateOnDisplay = YES;
     [self.locationManager startMonitoringForRegion:self.beaconRegion];
+    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+    
 }
 
 #pragma mark - Core Data stack

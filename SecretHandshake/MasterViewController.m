@@ -31,8 +31,8 @@
     // Do any additional setup after loading the view, typically from a nib.
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHUserIDKey] != nil) {
 
-        [self initBeacon];
-        [self transmitBeacon:nil];
+        //[self initBeacon];
+        //[self transmitBeacon:nil];
     }
     
 }
