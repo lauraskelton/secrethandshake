@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		820B224319564FBD0044E311 /* OAuthHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 820B224219564FBD0044E311 /* OAuthHandler.m */; };
 		828DE2421954C636008290BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 828DE2411954C636008290BB /* README.md */; };
+		82A3C2201963B0A900C241C2 /* QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C21F1963B0A900C241C2 /* QueryParser.m */; };
+		82A3C2251963C0DA00C241C2 /* QueryParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C2241963C0DA00C241C2 /* QueryParserTests.m */; };
+		82A3C2271964695200C241C2 /* OAuthHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C2261964695200C241C2 /* OAuthHandlerTests.m */; };
+		82A3C22B1964BF0B00C241C2 /* HackerSchoolAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C22A1964BF0B00C241C2 /* HackerSchoolAPIManager.m */; };
+		82A3C22D1964BF2000C241C2 /* HackerSchoolAPIManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C22C1964BF2000C241C2 /* HackerSchoolAPIManagerTests.m */; };
 		82B2D06B19544513004C6577 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82B2D06519544513004C6577 /* libTestFlight.a */; };
 		82B2D06F1954453B004C6577 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 82B2D06E1954453B004C6577 /* libz.dylib */; };
 		82DEA80219525D1C00C526FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA80119525D1C00C526FF /* main.m */; };
@@ -40,6 +45,14 @@
 		820B224219564FBD0044E311 /* OAuthHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthHandler.m; sourceTree = "<group>"; };
 		825822B4195365A80098ED5B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		828DE2411954C636008290BB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		82A3C21E1963B0A900C241C2 /* QueryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryParser.h; sourceTree = "<group>"; };
+		82A3C21F1963B0A900C241C2 /* QueryParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryParser.m; sourceTree = "<group>"; };
+		82A3C2211963C00800C241C2 /* OAuthHandler_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthHandler_Internal.h; sourceTree = "<group>"; };
+		82A3C2241963C0DA00C241C2 /* QueryParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryParserTests.m; path = SecretHandshakeTests/QueryParserTests.m; sourceTree = SOURCE_ROOT; };
+		82A3C2261964695200C241C2 /* OAuthHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthHandlerTests.m; sourceTree = "<group>"; };
+		82A3C2291964BF0B00C241C2 /* HackerSchoolAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HackerSchoolAPIManager.h; sourceTree = "<group>"; };
+		82A3C22A1964BF0B00C241C2 /* HackerSchoolAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HackerSchoolAPIManager.m; sourceTree = "<group>"; };
+		82A3C22C1964BF2000C241C2 /* HackerSchoolAPIManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HackerSchoolAPIManagerTests.m; sourceTree = "<group>"; };
 		82B2D06519544513004C6577 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		82B2D06819544513004C6577 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		82B2D06919544513004C6577 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
@@ -95,17 +108,33 @@
 		825822A31953654D0098ED5B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				82A3C2281964BEF700C241C2 /* Hacker School API */,
 				82B2D06419544504004C6577 /* TestFlight3 */,
 				82B2D03119537157004C6577 /* OAuth */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
 		};
+		82A3C2281964BEF700C241C2 /* Hacker School API */ = {
+			isa = PBXGroup;
+			children = (
+				82A3C2291964BF0B00C241C2 /* HackerSchoolAPIManager.h */,
+				82A3C22A1964BF0B00C241C2 /* HackerSchoolAPIManager.m */,
+				82A3C22C1964BF2000C241C2 /* HackerSchoolAPIManagerTests.m */,
+			);
+			name = "Hacker School API";
+			sourceTree = "<group>";
+		};
 		82B2D03119537157004C6577 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
 				820B224119564FBD0044E311 /* OAuthHandler.h */,
+				82A3C2211963C00800C241C2 /* OAuthHandler_Internal.h */,
 				820B224219564FBD0044E311 /* OAuthHandler.m */,
+				82A3C2261964695200C241C2 /* OAuthHandlerTests.m */,
+				82A3C21E1963B0A900C241C2 /* QueryParser.h */,
+				82A3C21F1963B0A900C241C2 /* QueryParser.m */,
+				82A3C2241963C0DA00C241C2 /* QueryParserTests.m */,
 			);
 			name = OAuth;
 			sourceTree = "<group>";
@@ -358,6 +387,8 @@
 				82F0AE1619529160003A1014 /* HackerSchooler.m in Sources */,
 				82DEA80219525D1C00C526FF /* main.m in Sources */,
 				82F0AE131952900C003A1014 /* Event.m in Sources */,
+				82A3C22B1964BF0B00C241C2 /* HackerSchoolAPIManager.m in Sources */,
+				82A3C2201963B0A900C241C2 /* QueryParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,7 +396,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82A3C2271964695200C241C2 /* OAuthHandlerTests.m in Sources */,
 				82DEA81F19525D1D00C526FF /* SecretHandshakeTests.m in Sources */,
+				82A3C22D1964BF2000C241C2 /* HackerSchoolAPIManagerTests.m in Sources */,
+				82A3C2251963C0DA00C241C2 /* QueryParserTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

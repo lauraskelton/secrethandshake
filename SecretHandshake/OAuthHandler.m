@@ -9,17 +9,13 @@
 #import "SecretHandshake-Prefix.pch"
 
 #import "OAuthHandler.h"
+#import "QueryParser.h"
+#import "OAuthHandler_Internal.h"
 
-@interface OAuthHandler ()
-
--(void)launchExternalSignIn:(id)sender;
--(void)requestAccessTokenWithCode:(NSString *)code;
-
-@end
 
 @implementation OAuthHandler
 
-@synthesize delegate;
+@synthesize delegate, code;
 
 - (id)init
 {
@@ -47,7 +43,7 @@
 {
     // first, try to refresh token. if fails, then launch external sign-in.
     
-    [self requestAccessTokenWithCode:nil];
+    [self requestAccessToken];
 }
 
 -(void)launchExternalSignIn:(id)sender
@@ -59,48 +55,81 @@
     [[UIApplication sharedApplication] openURL:authURL];
 }
 
--(void)requestAccessTokenWithCode:(NSString *)code
+-(NSURLRequest *)accessTokenRequest
 {
-    
     NSURL *tokenURL = [NSURL URLWithString:@"https://www.hackerschool.com/oauth/token"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:tokenURL];
     
     [request setHTTPMethod:@"POST"];
     NSString *postString;
-    if (code != nil) {
-        postString = [NSString stringWithFormat:@"grant_type=authorization_code&client_id=%@&client_secret=%@&redirect_uri=%@&code=%@", kMyClientID, kMyClientSecret, kMyRedirectURI, code];
+    if (self.code != nil) {
+        postString = [NSString stringWithFormat:@"grant_type=authorization_code&client_id=%@&client_secret=%@&redirect_uri=%@&code=%@", kMyClientID, kMyClientSecret, kMyRedirectURI, self.code];
     } else {
         NSLog(@"refreshing token");
         postString = [NSString stringWithFormat:@"grant_type=refresh_token&client_id=%@&client_secret=%@&refresh_token=%@", kMyClientID, kMyClientSecret, [[NSUserDefaults standardUserDefaults] objectForKey:kSHRefreshTokenKey]];
     }
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    return request;
+}
+
+-(BOOL)handleResponseWithData:(NSData *)data andError:(NSError *)error
+{
+    if (error == nil && data != nil) {
+        NSString *responseBody = [ [NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        if (responseBody != nil) {
+
+            NSLog(@"response: %@", responseBody);
+            
+            NSData *jsonData = [responseBody dataUsingEncoding:NSUTF8StringEncoding];
+            
+            if ([NSJSONSerialization isValidJSONObject:jsonData]) {
+                NSError *e;
+                NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&e];
+                
+                if (e != nil) {
+                    NSLog(@"error creating json object from response: %@", e);
+                    if (self.code == nil) {
+                        [self launchExternalSignIn:nil];
+                    }
+                    return false;
+                } else if ([jsonDict objectForKey:@"error"] != nil){
+                    NSLog(@"error requesting access token: %@", [jsonDict objectForKey:@"error"]);
+                    if (self.code == nil) {
+                        [self launchExternalSignIn:nil];
+                    }
+                    return false;
+                } else {
+                    if ([jsonDict objectForKey:@"access_token"] != nil && [jsonDict objectForKey:@"refresh_token"] != nil) {
+                        if ([[jsonDict objectForKey:@"access_token"] length] > 0 && [[jsonDict objectForKey:@"refresh_token"] length] > 0) {
+                            [[NSUserDefaults standardUserDefaults] setObject:[jsonDict objectForKey:@"access_token"] forKey:kSHAccessTokenKey];
+                            [[NSUserDefaults standardUserDefaults] setObject:[jsonDict objectForKey:@"refresh_token"] forKey:kSHRefreshTokenKey];
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        NSLog(@"Error generating OAuth access token: %@", error);
+    }
+    return false;
+}
+
+-(void)requestAccessToken
+{
+    
+    NSURLRequest *request = [self accessTokenRequest];
     
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
                                
-                               NSString *responseBody = [ [NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                               
-                               NSLog(@"response: %@", responseBody);
-                               
-                               NSData *jsonData = [responseBody dataUsingEncoding:NSUTF8StringEncoding];
-                               NSError *e;
-                               NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&e];
-                               
-                               if (e != nil) {
-                                   NSLog(@"error: %@", e);
-                                   if (code == nil) {
-                                       [self launchExternalSignIn:nil];
-                                   }
-                               } else if ([jsonDict objectForKey:@"error"] != nil){
-                                   NSLog(@"error requesting access token: %@", [jsonDict objectForKey:@"error"]);
-                                   if (code == nil) {
-                                       [self launchExternalSignIn:nil];
-                                   }
-                               } else {
-                                   [[NSUserDefaults standardUserDefaults] setObject:[jsonDict objectForKey:@"access_token"] forKey:kSHAccessTokenKey];
-                                   [[NSUserDefaults standardUserDefaults] setObject:[jsonDict objectForKey:@"refresh_token"] forKey:kSHRefreshTokenKey];
+                               if ([self handleResponseWithData:data andError:error]) {
                                    [self.delegate oauthHandlerDidAuthorize];
+                               } else {
+                                   // Should we do a popup to tell the user that login failed?
+                                   NSLog(@"Error handling login response.");
                                }
                                
                            }];
@@ -109,36 +138,18 @@
 -(void)handleAuthTokenURL:(NSURL *)url
 {
     // handle query here
-    NSDictionary *dict = [self parseQueryString:[url query]];
+    NSDictionary *dict = [QueryParser parseQueryString:[url query]];
     
     if ([dict objectForKey:@"error"] != nil) {
         [self.delegate oauthHandlerDidFailWithError:[dict objectForKey:@"error"]];
     } else if ([dict objectForKey:@"code"] != nil) {
         // Use the Authorization Code to request an Access Token from the Hacker School API
-        [self requestAccessTokenWithCode:[dict objectForKey:@"code"]];
+        self.code = [dict objectForKey:@"code"];
+        [self requestAccessToken];
     } else {
         [self.delegate oauthHandlerDidFailWithError:@"Authorization code not found. Failed to log in to Hacker School."];
     }
     
-}
-
-- (NSDictionary *)parseQueryString:(NSString *)query
-{
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:6];
-    NSArray *pairs = [query componentsSeparatedByString:@"&"];
-    
-    for (NSString *pair in pairs) {
-        NSArray *elements = [pair componentsSeparatedByString:@"="];
-        NSString *key = [[elements objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *val = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        [dict setObject:val forKey:key];
-        elements = nil;
-        key = nil;
-        val = nil;
-    }
-    pairs = nil;
-    return dict;
 }
 
 @end

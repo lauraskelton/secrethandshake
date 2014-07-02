@@ -85,7 +85,7 @@
         // parse the authentication code query
         [self authorizeFromExternalURL:url];
     }
-    NSLog(@"location manager: %@", self.locationManager);
+    //NSLog(@"location manager: %@", self.locationManager);
     
     return YES;
 }
@@ -137,7 +137,7 @@
 - (void)oauthHandlerDidAuthorize
 {
     // Authentication succeeded
-    NSLog(@"did authorize");
+    //NSLog(@"did authorize");
     [self downloadMyProfile:nil];
     //[self initRegion];
     //[self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
@@ -157,8 +157,8 @@
 }
 
 -(void)downloadMyProfile:(id)sender
-{
-    NSLog(@"downloading profile");
+{    
+    //NSLog(@"downloading profile");
     NSURL *profilesURL = [NSURL URLWithString:@"https://www.hackerschool.com/api/v1/people/me"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:profilesURL];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", [[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]] forHTTPHeaderField:@"Authorization"];
@@ -250,11 +250,11 @@
         didRangeBeacons:(NSArray *)beacons
                inRegion:(CLBeaconRegion *)region
 {
-    NSLog(@"did range beacons");
+    //NSLog(@"did range beacons");
     for (CLBeacon *beacon in beacons) {
-        NSLog(@"found beacon: %@", beacon);
+        //NSLog(@"found beacon: %@", beacon);
         if ([beacon.minor integerValue] > 0) {
-            NSLog(@"beacon: %@", beacon);
+            //NSLog(@"beacon: %@", beacon);
             if (([self.lastUserID integerValue] != [beacon.minor integerValue]) && ([beacon.minor integerValue] != [[[NSUserDefaults standardUserDefaults] objectForKey:kSHUserIDKey] integerValue]) && ([beacon.minor integerValue] > 0)) {
 
                 [self downloadUserProfileWithID:beacon.minor andProximity:beacon.proximity];
@@ -345,7 +345,7 @@
         distanceString = @"Far";
     }
     
-    NSLog(@"hacker schooler distance: %@", distanceString);
+    //NSLog(@"hacker schooler distance: %@", distanceString);
     
     // notify user of new event
     UILocalNotification *notification = [[UILocalNotification alloc] init];
@@ -379,9 +379,9 @@
 
 - (void)initRegion
 {
-    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-        [self.locationManager requestAlwaysAuthorization];
-    }
+    //if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+   //     [self.locationManager requestAlwaysAuthorization];
+   // }
     NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"3ee761a0-f737-11e3-a3ac-0800200c9a66"];
     self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"region42"];
     self.beaconRegion.notifyEntryStateOnDisplay = YES;
