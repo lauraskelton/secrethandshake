@@ -11,12 +11,13 @@
 @class Event;
 
 @interface DetailViewController : UIViewController
+{
+    IBOutlet UILabel *nameLabel;
+    IBOutlet UILabel *batchLabel;
+    IBOutlet UIImageView *profileImageView;
+}
 
 @property (strong, nonatomic) Event * event;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *batchLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
-
 
 @end
 

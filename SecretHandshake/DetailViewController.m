@@ -31,9 +31,9 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     if (self.event) {
-        self.nameLabel.text = [NSString stringWithFormat:@"%@ %@",self.event.hackerSchooler.first_name, self.event.hackerSchooler.last_name];
-        self.batchLabel.text = self.event.hackerSchooler.batch;
-        self.profileImageView.image = [UIImage imageWithContentsOfFile:self.event.hackerSchooler.photoFilePath];
+        nameLabel.text = [NSString stringWithFormat:@"%@ %@",self.event.hackerSchooler.first_name, self.event.hackerSchooler.last_name];
+        batchLabel.text = self.event.hackerSchooler.batch;
+        profileImageView.image = [UIImage imageWithContentsOfFile:self.event.hackerSchooler.photoFilePath];
 
     }
 }
