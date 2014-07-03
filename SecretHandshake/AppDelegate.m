@@ -18,23 +18,16 @@
 #import "TestFlight+ManualSessions.h"
 
 #import "OAuthHandler.h"
+#import "HackerSchoolAPIManager.h"
+#import "IBeaconSearchHandler.h"
+#import "IBeaconTransmitHandler.h"
 
-@import CoreLocation;
+@interface AppDelegate () <OAuthHandlerDelegate, HackerSchoolAPIManagerDelegate, IBeaconSearchHandlerDelegate>
 
-@interface AppDelegate () <CLLocationManagerDelegate, OAuthHandlerDelegate>
-
-@property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) CLBeaconRegion *beaconRegion;
-@property (nonatomic, retain) NSNumber *lastUserID;
-@property (nonatomic, retain) NSTimer *currentTimer;
 @property (nonatomic, retain) MasterViewController *masterViewController;
 
 - (void)getUserSignIn:(id)sender;
 - (void)authorizeFromExternalURL:(NSURL *)url;
-
--(void)downloadMyProfile:(id)sender;
-
-- (void)initRegion;
 
 @end
 
@@ -53,6 +46,7 @@
         [TestFlight addCustomEnvironmentInformation:[[NSUserDefaults standardUserDefaults] objectForKey:kSHUserIDKey] forKey:@"userid"];
     }
     
+    // Use Manual Sessions because we want to keep the session going when the app is backgrounded during OAuth login process
     [TestFlight setOptions:@{ TFOptionManualSessions : @YES }];
     [TestFlight takeOff:@"5b09de90-f520-4781-bb58-09076761115f"];
     [TestFlight manuallyStartSession];
@@ -60,16 +54,11 @@
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     self.masterViewController = (MasterViewController *)navigationController.topViewController;
     self.masterViewController.managedObjectContext = self.managedObjectContext;
-    
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
 
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey] == nil) {
         [self getUserSignIn:nil];
     } else {
-        [self downloadMyProfile:nil];
-        //[self initRegion];
-        //[self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
+        [[HackerSchoolAPIManager sharedWithContext:self.managedObjectContext] downloadUserProfileWithID:nil isMe:@YES];
     }
     
     return YES;
@@ -85,7 +74,6 @@
         // parse the authentication code query
         [self authorizeFromExternalURL:url];
     }
-    //NSLog(@"location manager: %@", self.locationManager);
     
     return YES;
 }
@@ -136,12 +124,7 @@
 
 - (void)oauthHandlerDidAuthorize
 {
-    // Authentication succeeded
-    //NSLog(@"did authorize");
-    [self downloadMyProfile:nil];
-    //[self initRegion];
-    //[self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
-
+    [[HackerSchoolAPIManager sharedWithContext:self.managedObjectContext] downloadUserProfileWithID:nil isMe:@YES];
 }
 
 - (void)oauthHandlerDidFailWithError:(NSString *)errorMessage
@@ -156,238 +139,44 @@
 
 }
 
--(void)downloadMyProfile:(id)sender
-{    
-    //NSLog(@"downloading profile");
-    NSURL *profilesURL = [NSURL URLWithString:@"https://www.hackerschool.com/api/v1/people/me"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:profilesURL];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", [[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]] forHTTPHeaderField:@"Authorization"];
+#pragma mark - IBeaconSearchHandler Delegate
 
+- (void)iBeaconSearchHandlerFoundUserWithID:(NSNumber *)userID
+{
+    [[HackerSchoolAPIManager sharedWithContext:self.managedObjectContext] downloadUserProfileWithID:userID isMe:@NO];
+}
+
+#pragma mark - Hacker School API Manager Delegate
+
+- (void)hackerSchoolAPIUnauthorized
+{
+    [self getUserSignIn:nil];
+}
+
+- (void)hackerSchoolAPIError
+{
+    NSLog(@"error connecting to Hacker School API");
+}
+
+- (void)hackerSchoolAPIGotMyProfile
+{
+    [self saveContext];
     
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                               
-                               NSString *responseBody = [ [NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                               //NSLog(@"Received Response: %@", responseBody);
-                               
-                               
-                               NSData *jsonData = [responseBody dataUsingEncoding:NSUTF8StringEncoding];
-                               NSError *e;
-                               NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&e];
-                               
-                               if (e != nil) {
-                                   NSLog(@"error: %@", e);
-                               } else {
-                                   NSLog(@"JSON Response My Profile: %@", jsonDict);
-                                   if ([jsonDict objectForKey:@"message"] != nil) {
-                                       if ([[jsonDict objectForKey:@"message"] isEqualToString:@"unauthorized"]) {
-                                           [self getUserSignIn:nil];
-                                       } else {
-                                           NSLog(@"error message from HS api: %@", [jsonDict objectForKey:@"message"]);
-                                       }
-                                       [TestFlight passCheckpoint:@"LOGIN_ERROR"];
-                                   } else {
-                                   
-                                       [TestFlight passCheckpoint:@"LOGIN_SUCCESS"];
-
-                                       HackerSchooler *thisHackerSchooler = [HackerSchooler hackerSchoolerWithUniqueUserID:@((NSInteger)[jsonDict valueForKey:@"id"]) andFirstName:[jsonDict objectForKey:@"first_name"] andLastName:[jsonDict objectForKey:@"last_name"] andBatch:[[jsonDict objectForKey:@"batch"] objectForKey:@"name"] inManagedObjectContext:self.managedObjectContext];
-                                       
-#warning testing pick random user
-                                       if ([[jsonDict valueForKey:@"id"] intValue] == 759) {
-                                           // pick a random user id for testing
-                                           NSArray *userIDs = @[@"36", @"94", @"53", @"34", @"29", @"35", @"96", @"759"];
-                                           NSString *randUser = [userIDs objectAtIndex: arc4random() % [userIDs count]];
-                                           [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[randUser integerValue]] forKey:kSHUserIDKey];
-                                           randUser = nil;
-                                           userIDs = nil;
-                                       } else {
-                                           [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[[jsonDict valueForKey:@"id"] integerValue]] forKey:kSHUserIDKey];
-                                       }
-                                       
-                                       NSLog(@"my user id: %@", [jsonDict objectForKey:@"id"]);
-                                       
-                                       [self.masterViewController startIBeacon:nil];
-                                       
-                                       UIAlertView *alertView = [ [UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Hello %@", thisHackerSchooler.first_name]
-                                                                                            message:[NSString stringWithFormat:@"Batch %@", thisHackerSchooler.batch]
-                                                                                           delegate:self
-                                                                                  cancelButtonTitle:@"Dismiss"
-                                                                                  otherButtonTitles:nil];
-                                       [alertView show];
-                                       
-                                       [self initRegion];
-                                       //[self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
-                                       
-                                   }
-                               }
-                               
-                           }];
-}
-
-#pragma mark - iBeacon methods
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
-    if ([region isKindOfClass:[CLBeaconRegion class]]) {
-        NSLog(@"did exit region: %@", region);
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
-{
-    if ([region isKindOfClass:[CLBeaconRegion class]]) {
-        NSLog(@"did enter region: %@", region);
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    NSLog(@"location manager failed: %@", error);
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-        didRangeBeacons:(NSArray *)beacons
-               inRegion:(CLBeaconRegion *)region
-{
-    //NSLog(@"did range beacons");
-    for (CLBeacon *beacon in beacons) {
-        //NSLog(@"found beacon: %@", beacon);
-        if ([beacon.minor integerValue] > 0) {
-            //NSLog(@"beacon: %@", beacon);
-            if (([self.lastUserID integerValue] != [beacon.minor integerValue]) && ([beacon.minor integerValue] != [[[NSUserDefaults standardUserDefaults] objectForKey:kSHUserIDKey] integerValue]) && ([beacon.minor integerValue] > 0)) {
-
-                [self downloadUserProfileWithID:beacon.minor andProximity:beacon.proximity];
-  
-            }
-        }
-    }
-}
-
--(void)downloadUserProfileWithID:(NSNumber *)userID andProximity:(CLProximity)proximity
-{
-    NSURL *profilesURL = [NSURL URLWithString:[NSString stringWithFormat: @"https://www.hackerschool.com/api/v1/people/%@", userID]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:profilesURL];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", [[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]] forHTTPHeaderField:@"Authorization"];
+    // Start transmitting our iBeacon
+    [[IBeaconTransmitHandler shared] startIBeacon];
     
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                               
-                               NSString *responseBody = [ [NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                               
-                               NSLog(@"response: %@", responseBody);
-                               
-                               NSData *jsonData = [responseBody dataUsingEncoding:NSUTF8StringEncoding];
-                               NSError *e;
-                               NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&e];
-                               
-                               if (e != nil) {
-                                   NSLog(@"error: %@", e);
-                               } else {
-                                   if ([jsonDict objectForKey:@"message"] != nil) {
-                                       if ([[jsonDict objectForKey:@"message"] isEqualToString:@"unauthorized"]) {
-                                           [self getUserSignIn:nil];
-                                       } else {
-                                           NSLog(@"error message from HS api: %@", [jsonDict objectForKey:@"message"]);
-                                       }
-                                   }
-                                   else {
-                                       [self recordHackerSchoolerSightingWithProfile:jsonDict andProximity:proximity];
-                                   }
-                               }
-                               
-                           }];
-    [self markCurrentUserID:userID];
+    // Start searching for nearby iBeacons
+    [[IBeaconSearchHandler shared] initRegion];
 }
 
--(void)recordHackerSchoolerSightingWithProfile:(NSDictionary *)profile andProximity:(CLProximity)proximity
+- (void)hackerSchoolAPIAddedEvent
 {
-    [TestFlight passCheckpoint:@"FOUND_HACKER_SCHOOLER"];
-    
-    // add new hacker schooler to core data
-    HackerSchooler *thisHackerSchooler = [HackerSchooler hackerSchoolerWithUniqueUserID:[profile objectForKey:@"id"] andFirstName:[profile objectForKey:@"first_name"] andLastName:[profile objectForKey:@"last_name"] andBatch:[[profile objectForKey:@"batch"] objectForKey:@"name"] inManagedObjectContext:self.managedObjectContext];
-    
-    thisHackerSchooler.photoURL = [profile objectForKey:@"image"];
-    
-    // add this event to core data
-    if (thisHackerSchooler.lastEventTime != nil) {
-        NSTimeInterval distanceBetweenDates = [[NSDate date] timeIntervalSinceDate:thisHackerSchooler.lastEventTime];
-        double secondsInAnHour = 3600.0;
-        CGFloat hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
-#warning testing alter here for more frequent alerts
-        if (hoursBetweenDates > 1.0) {
-            // record this as a new event
-            [self addEventWithHackerSchooler:thisHackerSchooler andProximity:proximity];
-        }
-    } else {
-        // record this as a new event
-        [self addEventWithHackerSchooler:thisHackerSchooler andProximity:proximity];
-    }
-    thisHackerSchooler = nil;
     [self saveContext];
 }
 
--(void)addEventWithHackerSchooler:(HackerSchooler *)hackerSchooler andProximity:(CLProximity)proximity
+- (void)hackerSchoolAPIMarkCurrentUser:(NSNumber *)userID
 {
-    Event *newEvent = [Event createEventWithHackerSchooler:hackerSchooler inManagedObjectContext:self.managedObjectContext];
-    [hackerSchooler addEventsObject:newEvent];
-    newEvent = nil;
-    
-    NSString *distanceString = @"";
-    if (proximity == CLProximityUnknown) {
-        distanceString = @"Unknown Proximity";
-    } else if (proximity == CLProximityImmediate) {
-        distanceString = @"Immediate";
-    } else if (proximity == CLProximityNear) {
-        distanceString = @"Near";
-    } else if (proximity == CLProximityFar) {
-        distanceString = @"Far";
-    }
-    
-    //NSLog(@"hacker schooler distance: %@", distanceString);
-    
-    // notify user of new event
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = [NSString stringWithFormat:@"Found Hacker Schooler: %@ %@", hackerSchooler.first_name, hackerSchooler.last_name];
-    notification.soundName = @"Default";
-    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-    NSLog(@"hacker schooler found: %@", hackerSchooler.first_name);
-}
-
--(void)markCurrentUserID:(NSNumber *)userID
-{
-    NSLog(@"marking id: %@", userID);
-    [self.currentTimer invalidate];
-    self.currentTimer = nil;
-    self.lastUserID = userID;
-    [self intervalTimer];
-}
-
-- (void) intervalTimer {
-    self.currentTimer = [NSTimer scheduledTimerWithTimeInterval:60
-                                     target:self
-                                   selector:@selector(resetBeacons:)
-                                   userInfo:nil
-                                    repeats:NO];
-}
-
-- (void) resetBeacons:(NSTimer *) timer {
-    //do something here..
-    self.lastUserID = nil;
-}
-
-- (void)initRegion
-{
-    //if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
-   //     [self.locationManager requestAlwaysAuthorization];
-   // }
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"3ee761a0-f737-11e3-a3ac-0800200c9a66"];
-    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid identifier:@"region42"];
-    self.beaconRegion.notifyEntryStateOnDisplay = YES;
-    [self.locationManager startMonitoringForRegion:self.beaconRegion];
-    [self.locationManager startRangingBeaconsInRegion:self.beaconRegion];
-    
+    [[IBeaconSearchHandler shared] markCurrentUserID:userID];
 }
 
 #pragma mark - Core Data stack

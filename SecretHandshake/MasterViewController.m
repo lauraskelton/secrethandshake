@@ -13,10 +13,9 @@
 #import "HackerSchooler.h"
 #import "Event.h"
 
-@interface MasterViewController ()
+#import "FormattingHelpers.h"
 
-- (void)initBeacon;
-- (IBAction)transmitBeacon:(UIButton *)sender;
+@interface MasterViewController ()
 
 @end
 
@@ -40,50 +39,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - iBeacons
-
--(void)startIBeacon:(id)sender
-{
-    [self initBeacon];
-    [self transmitBeacon:nil];
-}
-
-- (void)initBeacon
-{
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHUserIDKey] != nil) {
-
-        NSLog(@"my id int value: %d", [[[NSUserDefaults standardUserDefaults] objectForKey:kSHUserIDKey] intValue]);
-        
-    NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:@"3ee761a0-f737-11e3-a3ac-0800200c9a66"];
-    self.beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
-                                                                major:1
-                                                                minor:[[[NSUserDefaults standardUserDefaults] objectForKey:kSHUserIDKey] intValue]
-                                                           identifier:@"region42"];
-    }
-}
-
-- (IBAction)transmitBeacon:(UIButton *)sender
-{
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHUserIDKey] != nil) {
-
-        self.beaconPeripheralData = [self.beaconRegion peripheralDataWithMeasuredPower:nil];
-        self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
-                                                                         queue:nil
-                                                                       options:nil];
-    }
-}
-
--(void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
-{
-    if (peripheral.state == CBPeripheralManagerStatePoweredOn) {
-        NSLog(@"Powered On");
-        [self.peripheralManager startAdvertising:self.beaconPeripheralData];
-    } else if (peripheral.state == CBPeripheralManagerStatePoweredOff) {
-        NSLog(@"Powered Off");
-        [self.peripheralManager stopAdvertising];
-    }
 }
 
 #pragma mark - Segues
@@ -128,7 +83,7 @@
     captionLabel.text = anEvent.hackerSchooler.batch;
     
     UILabel *dateLabel = (UILabel *)[cell.contentView viewWithTag:4];
-    dateLabel.text = [self formatDate:anEvent.timestamp];
+    dateLabel.text = [FormattingHelpers formatDate:anEvent.timestamp];
     
     UIImageView *profileImageView = (UIImageView *)[cell.contentView viewWithTag:1];
     if ([anEvent.hackerSchooler.savedPhoto boolValue] == YES) {
@@ -152,17 +107,6 @@
         
     }
 
-}
-
--(NSString *)formatDate:(NSDate *)date
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    NSLocale *locale = [NSLocale currentLocale];
-    [formatter setLocale:locale];
-    [formatter setDateFormat:@"EEEE, MMMM d, h:mm a"];
-    NSString *dateString = [formatter stringFromDate:date];
-    formatter = nil;
-    return dateString;
 }
 
 #pragma mark - Hacker Schooler Delegate Methods
@@ -212,62 +156,7 @@
     return _fetchedResultsController;
 }
 
-/*
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    UITableView *tableView = self.tableView;
-    
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView endUpdates];
-}
-*/
-
-// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     // In the simplest, most efficient, case, reload the table view.
     [self.tableView reloadData];
