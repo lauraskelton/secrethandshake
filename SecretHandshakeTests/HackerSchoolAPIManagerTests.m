@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "HackerSchoolAPIManager.h"
 
 @interface HackerSchoolAPIManagerTests : XCTestCase
 
@@ -26,11 +27,33 @@
     [super tearDown];
 }
 
-/*
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+- (void)testHackerSchoolAPIManagerExists {
+    
+    //+ (HackerSchoolAPIManager *)sharedWithContext:(NSManagedObjectContext *)context;
+
+    // The HackerSchoolAPIManager sharedWithContext should never return nil
+    if ([HackerSchoolAPIManager sharedWithContext:nil]) {
+        XCTAssert(YES, @"Pass");
+        return;
+    }
+    XCTFail(@"HackerSchoolAPIManager shared does not exist");
 }
- */
+
+- (void)testHackerSchoolAPIManagerIsSingleton {
+    
+    //+ (HackerSchoolAPIManager *)sharedWithContext:(NSManagedObjectContext *)context;
+    
+    // The HackerSchoolAPIManager sharedWithContext should always point to the same object
+    HackerSchoolAPIManager *hackerSchoolAPIManager = [HackerSchoolAPIManager sharedWithContext:nil];
+    
+    HackerSchoolAPIManager *hackerSchoolAPIManagerNew = [HackerSchoolAPIManager sharedWithContext:nil];
+    
+    if (hackerSchoolAPIManager == hackerSchoolAPIManagerNew) {
+        XCTAssert(YES, @"Pass");
+        return;
+    }
+    XCTFail(@"HackerSchoolAPIManager sharedWithContext is not a singleton");
+    
+}
 
 @end

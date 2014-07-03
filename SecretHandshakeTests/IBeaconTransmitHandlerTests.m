@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "IBeaconTransmitHandler.h"
 
 @interface IBeaconTransmitHandlerTests : XCTestCase
 
@@ -26,13 +27,33 @@
     [super tearDown];
 }
 
-/*
-
-- (void)testExample
-{
-
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+- (void)testSharedIBeaconTransmitHandlerExists {
+    
+    //+ (IBeaconTransmitHandler *)shared;
+    
+    // The IBeaconTransmitHandler shared should never return nil
+    if ([IBeaconTransmitHandler shared]) {
+        XCTAssert(YES, @"Pass");
+        return;
+    }
+    XCTFail(@"IBeaconTransmitHandler shared does not exist");
 }
-*/
+
+- (void)testSharedIBeaconTransmitHandlerIsSingleton {
+    
+    //+ (IBeaconTransmitHandler *)shared;
+    
+    // The IBeaconTransmitHandler shared should always point to the same object
+    IBeaconTransmitHandler *iBeaconTransmitHandler = [IBeaconTransmitHandler shared];
+    
+    IBeaconTransmitHandler *iBeaconTransmitHandlerNew = [IBeaconTransmitHandler shared];
+    
+    if (iBeaconTransmitHandler == iBeaconTransmitHandlerNew) {
+        XCTAssert(YES, @"Pass");
+        return;
+    }
+    XCTFail(@"IBeaconTransmitHandler shared is not a singleton");
+    
+}
 
 @end

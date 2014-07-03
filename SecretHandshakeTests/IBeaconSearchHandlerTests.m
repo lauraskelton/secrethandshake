@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "IBeaconSearchHandler.h"
 
 @interface IBeaconSearchHandlerTests : XCTestCase
 
@@ -26,10 +27,33 @@
     [super tearDown];
 }
 
-/*
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+- (void)testSharedIBeaconSearchHandlerExists {
+    
+    //+ (IBeaconSearchHandler *)shared;
+
+    // The IBeaconSearchHandler shared should never return nil
+    if ([IBeaconSearchHandler shared]) {
+        XCTAssert(YES, @"Pass");
+        return;
+    }
+    XCTFail(@"IBeaconSearchHandler shared does not exist");
 }
-*/
+
+- (void)testSharedIBeaconSearchHandlerIsSingleton {
+    
+    //+ (IBeaconSearchHandler *)shared;
+    
+    // The IBeaconSearchHandler shared should always point to the same object
+    IBeaconSearchHandler *iBeaconSearchHandler = [IBeaconSearchHandler shared];
+    
+    IBeaconSearchHandler *iBeaconSearchHandlerNew = [IBeaconSearchHandler shared];
+    
+    if (iBeaconSearchHandler == iBeaconSearchHandlerNew) {
+        XCTAssert(YES, @"Pass");
+        return;
+    }
+    XCTFail(@"IBeaconSearchHandler shared is not a singleton");
+    
+}
+
 @end
