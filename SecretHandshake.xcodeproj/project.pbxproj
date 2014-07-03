@@ -10,15 +10,15 @@
 		820B224319564FBD0044E311 /* OAuthHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 820B224219564FBD0044E311 /* OAuthHandler.m */; };
 		828DE2421954C636008290BB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 828DE2411954C636008290BB /* README.md */; };
 		82A3C2201963B0A900C241C2 /* QueryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C21F1963B0A900C241C2 /* QueryParser.m */; };
-		82A3C2251963C0DA00C241C2 /* QueryParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C2241963C0DA00C241C2 /* QueryParserTests.m */; };
-		82A3C2271964695200C241C2 /* OAuthHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C2261964695200C241C2 /* OAuthHandlerTests.m */; };
 		82A3C22B1964BF0B00C241C2 /* HackerSchoolAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C22A1964BF0B00C241C2 /* HackerSchoolAPIManager.m */; };
-		82A3C22D1964BF2000C241C2 /* HackerSchoolAPIManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C22C1964BF2000C241C2 /* HackerSchoolAPIManagerTests.m */; };
 		82A3C2361965D1B200C241C2 /* IBeaconSearchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C2351965D1B200C241C2 /* IBeaconSearchHandler.m */; };
 		82A3C2391965D1C000C241C2 /* IBeaconTransmitHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C2381965D1C000C241C2 /* IBeaconTransmitHandler.m */; };
-		82A3C23B1965D1CD00C241C2 /* IBeaconSearchHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C23A1965D1CD00C241C2 /* IBeaconSearchHandlerTests.m */; };
-		82A3C23D1965D1DD00C241C2 /* IBeaconTransmitHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C23C1965D1DD00C241C2 /* IBeaconTransmitHandlerTests.m */; };
 		82A3C2401965F62E00C241C2 /* FormattingHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C23F1965F62E00C241C2 /* FormattingHelpers.m */; };
+		82A3C2431965FB8600C241C2 /* HackerSchoolAPIManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C2421965FB8600C241C2 /* HackerSchoolAPIManagerTests.m */; };
+		82A3C2451965FB9500C241C2 /* IBeaconSearchHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C2441965FB9500C241C2 /* IBeaconSearchHandlerTests.m */; };
+		82A3C2471965FBA000C241C2 /* IBeaconTransmitHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C2461965FBA000C241C2 /* IBeaconTransmitHandlerTests.m */; };
+		82A3C2491965FBB000C241C2 /* OAuthHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C2481965FBB000C241C2 /* OAuthHandlerTests.m */; };
+		82A3C24B1965FBBA00C241C2 /* QueryParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A3C24A1965FBBA00C241C2 /* QueryParserTests.m */; };
 		82B2D06B19544513004C6577 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82B2D06519544513004C6577 /* libTestFlight.a */; };
 		82B2D06F1954453B004C6577 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 82B2D06E1954453B004C6577 /* libz.dylib */; };
 		82DEA80219525D1C00C526FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DEA80119525D1C00C526FF /* main.m */; };
@@ -53,19 +53,19 @@
 		82A3C21E1963B0A900C241C2 /* QueryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryParser.h; sourceTree = "<group>"; };
 		82A3C21F1963B0A900C241C2 /* QueryParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryParser.m; sourceTree = "<group>"; };
 		82A3C2211963C00800C241C2 /* OAuthHandler_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthHandler_Internal.h; sourceTree = "<group>"; };
-		82A3C2241963C0DA00C241C2 /* QueryParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryParserTests.m; path = SecretHandshakeTests/QueryParserTests.m; sourceTree = SOURCE_ROOT; };
-		82A3C2261964695200C241C2 /* OAuthHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthHandlerTests.m; sourceTree = "<group>"; };
 		82A3C2291964BF0B00C241C2 /* HackerSchoolAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HackerSchoolAPIManager.h; sourceTree = "<group>"; };
 		82A3C22A1964BF0B00C241C2 /* HackerSchoolAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HackerSchoolAPIManager.m; sourceTree = "<group>"; };
-		82A3C22C1964BF2000C241C2 /* HackerSchoolAPIManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HackerSchoolAPIManagerTests.m; sourceTree = "<group>"; };
 		82A3C2341965D1B200C241C2 /* IBeaconSearchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBeaconSearchHandler.h; sourceTree = "<group>"; };
 		82A3C2351965D1B200C241C2 /* IBeaconSearchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBeaconSearchHandler.m; sourceTree = "<group>"; };
 		82A3C2371965D1C000C241C2 /* IBeaconTransmitHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBeaconTransmitHandler.h; sourceTree = "<group>"; };
 		82A3C2381965D1C000C241C2 /* IBeaconTransmitHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBeaconTransmitHandler.m; sourceTree = "<group>"; };
-		82A3C23A1965D1CD00C241C2 /* IBeaconSearchHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBeaconSearchHandlerTests.m; sourceTree = "<group>"; };
-		82A3C23C1965D1DD00C241C2 /* IBeaconTransmitHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBeaconTransmitHandlerTests.m; sourceTree = "<group>"; };
 		82A3C23E1965F62E00C241C2 /* FormattingHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormattingHelpers.h; sourceTree = "<group>"; };
 		82A3C23F1965F62E00C241C2 /* FormattingHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormattingHelpers.m; sourceTree = "<group>"; };
+		82A3C2421965FB8600C241C2 /* HackerSchoolAPIManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HackerSchoolAPIManagerTests.m; path = SecretHandshakeTests/HackerSchoolAPIManagerTests.m; sourceTree = SOURCE_ROOT; };
+		82A3C2441965FB9500C241C2 /* IBeaconSearchHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IBeaconSearchHandlerTests.m; path = SecretHandshakeTests/IBeaconSearchHandlerTests.m; sourceTree = SOURCE_ROOT; };
+		82A3C2461965FBA000C241C2 /* IBeaconTransmitHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IBeaconTransmitHandlerTests.m; path = SecretHandshakeTests/IBeaconTransmitHandlerTests.m; sourceTree = SOURCE_ROOT; };
+		82A3C2481965FBB000C241C2 /* OAuthHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OAuthHandlerTests.m; path = SecretHandshakeTests/OAuthHandlerTests.m; sourceTree = SOURCE_ROOT; };
+		82A3C24A1965FBBA00C241C2 /* QueryParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QueryParserTests.m; path = SecretHandshakeTests/QueryParserTests.m; sourceTree = SOURCE_ROOT; };
 		82B2D06519544513004C6577 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		82B2D06819544513004C6577 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		82B2D06919544513004C6577 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 			children = (
 				82A3C2291964BF0B00C241C2 /* HackerSchoolAPIManager.h */,
 				82A3C22A1964BF0B00C241C2 /* HackerSchoolAPIManager.m */,
-				82A3C22C1964BF2000C241C2 /* HackerSchoolAPIManagerTests.m */,
+				82A3C2421965FB8600C241C2 /* HackerSchoolAPIManagerTests.m */,
 			);
 			name = "Hacker School API";
 			sourceTree = "<group>";
@@ -145,10 +145,10 @@
 			children = (
 				82A3C2341965D1B200C241C2 /* IBeaconSearchHandler.h */,
 				82A3C2351965D1B200C241C2 /* IBeaconSearchHandler.m */,
-				82A3C23A1965D1CD00C241C2 /* IBeaconSearchHandlerTests.m */,
+				82A3C2441965FB9500C241C2 /* IBeaconSearchHandlerTests.m */,
 				82A3C2371965D1C000C241C2 /* IBeaconTransmitHandler.h */,
 				82A3C2381965D1C000C241C2 /* IBeaconTransmitHandler.m */,
-				82A3C23C1965D1DD00C241C2 /* IBeaconTransmitHandlerTests.m */,
+				82A3C2461965FBA000C241C2 /* IBeaconTransmitHandlerTests.m */,
 			);
 			name = iBeacon;
 			sourceTree = "<group>";
@@ -168,10 +168,10 @@
 				820B224119564FBD0044E311 /* OAuthHandler.h */,
 				82A3C2211963C00800C241C2 /* OAuthHandler_Internal.h */,
 				820B224219564FBD0044E311 /* OAuthHandler.m */,
-				82A3C2261964695200C241C2 /* OAuthHandlerTests.m */,
+				82A3C2481965FBB000C241C2 /* OAuthHandlerTests.m */,
 				82A3C21E1963B0A900C241C2 /* QueryParser.h */,
 				82A3C21F1963B0A900C241C2 /* QueryParser.m */,
-				82A3C2241963C0DA00C241C2 /* QueryParserTests.m */,
+				82A3C24A1965FBBA00C241C2 /* QueryParserTests.m */,
 			);
 			name = OAuth;
 			sourceTree = "<group>";
@@ -428,12 +428,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82A3C2271964695200C241C2 /* OAuthHandlerTests.m in Sources */,
+				82A3C2471965FBA000C241C2 /* IBeaconTransmitHandlerTests.m in Sources */,
+				82A3C24B1965FBBA00C241C2 /* QueryParserTests.m in Sources */,
+				82A3C2431965FB8600C241C2 /* HackerSchoolAPIManagerTests.m in Sources */,
 				82DEA81F19525D1D00C526FF /* SecretHandshakeTests.m in Sources */,
-				82A3C23D1965D1DD00C241C2 /* IBeaconTransmitHandlerTests.m in Sources */,
-				82A3C22D1964BF2000C241C2 /* HackerSchoolAPIManagerTests.m in Sources */,
-				82A3C2251963C0DA00C241C2 /* QueryParserTests.m in Sources */,
-				82A3C23B1965D1CD00C241C2 /* IBeaconSearchHandlerTests.m in Sources */,
+				82A3C2451965FB9500C241C2 /* IBeaconSearchHandlerTests.m in Sources */,
+				82A3C2491965FBB000C241C2 /* OAuthHandlerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
