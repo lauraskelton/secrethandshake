@@ -20,7 +20,9 @@
         if ([elements count] == 2) {
             NSString *key = [[elements objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             NSString *val = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            [dict setObject:val forKey:key];
+            if ([key length] > 0 && [val length] > 0) {
+                [dict setObject:val forKey:key];
+            }
             key = nil;
             val = nil;
         }

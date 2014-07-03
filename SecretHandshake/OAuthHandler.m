@@ -34,6 +34,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedHandler = [[OAuthHandler alloc] init];
+
     });
     
     return _sharedHandler;
@@ -43,7 +44,11 @@
 {
     // first, try to refresh token. if fails, then launch external sign-in.
     
-    [self requestAccessToken];
+    if (self.code == nil && [[NSUserDefaults standardUserDefaults] objectForKey:kSHRefreshTokenKey] == nil) {
+        [self launchExternalSignIn:nil];
+    } else {
+        [self requestAccessToken];
+    }
 }
 
 -(void)launchExternalSignIn:(id)sender
@@ -69,6 +74,7 @@
         postString = [NSString stringWithFormat:@"grant_type=refresh_token&client_id=%@&client_secret=%@&refresh_token=%@", kMyClientID, kMyClientSecret, [[NSUserDefaults standardUserDefaults] objectForKey:kSHRefreshTokenKey]];
     }
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    NSLog(@"request: %@ method: %@ httpBody: %@", request, request.HTTPMethod, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     return request;
 }
 
@@ -81,31 +87,31 @@
 
             NSLog(@"response: %@", responseBody);
             
-            NSData *jsonData = [responseBody dataUsingEncoding:NSUTF8StringEncoding];
+            //NSData *jsonData = [responseBody dataUsingEncoding:NSUTF8StringEncoding];
             
-            if ([NSJSONSerialization isValidJSONObject:jsonData]) {
-                NSError *e;
-                NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&e];
-                
-                if (e != nil) {
-                    NSLog(@"error creating json object from response: %@", e);
-                    if (self.code == nil) {
-                        [self launchExternalSignIn:nil];
-                    }
-                    return false;
-                } else if ([jsonDict objectForKey:@"error"] != nil){
-                    NSLog(@"error requesting access token: %@", [jsonDict objectForKey:@"error"]);
-                    if (self.code == nil) {
-                        [self launchExternalSignIn:nil];
-                    }
-                    return false;
-                } else {
-                    if ([jsonDict objectForKey:@"access_token"] != nil && [jsonDict objectForKey:@"refresh_token"] != nil) {
-                        if ([[jsonDict objectForKey:@"access_token"] length] > 0 && [[jsonDict objectForKey:@"refresh_token"] length] > 0) {
-                            [[NSUserDefaults standardUserDefaults] setObject:[jsonDict objectForKey:@"access_token"] forKey:kSHAccessTokenKey];
-                            [[NSUserDefaults standardUserDefaults] setObject:[jsonDict objectForKey:@"refresh_token"] forKey:kSHRefreshTokenKey];
-                            return true;
-                        }
+            NSError *e;
+            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&e];
+            
+            NSLog(@"jsonDict: %@", jsonDict);
+            
+            if (e != nil) {
+                NSLog(@"error creating json object from response: %@", e);
+                if (self.code == nil) {
+                    [self launchExternalSignIn:nil];
+                }
+                return false;
+            } else if ([jsonDict objectForKey:@"error"] != nil){
+                NSLog(@"error requesting access token: %@", [jsonDict objectForKey:@"error"]);
+                if (self.code == nil) {
+                    [self launchExternalSignIn:nil];
+                }
+                return false;
+            } else {
+                if ([jsonDict objectForKey:@"access_token"] != nil && [jsonDict objectForKey:@"refresh_token"] != nil) {
+                    if ([[jsonDict objectForKey:@"access_token"] length] > 0 && [[jsonDict objectForKey:@"refresh_token"] length] > 0) {
+                        [[NSUserDefaults standardUserDefaults] setObject:[jsonDict objectForKey:@"access_token"] forKey:kSHAccessTokenKey];
+                        [[NSUserDefaults standardUserDefaults] setObject:[jsonDict objectForKey:@"refresh_token"] forKey:kSHRefreshTokenKey];
+                        return true;
                     }
                 }
             }

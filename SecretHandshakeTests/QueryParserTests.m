@@ -30,44 +30,62 @@
 
 - (void)testQueryParser {
     
+    //+ (NSDictionary *)parseQueryString:(NSString *)query;
+    
     // If there are no query parameters, the dictionary should be empty.
     NSDictionary *queryDictionary = [QueryParser parseQueryString:@"?"];
     if ([queryDictionary count] > 0) {
+        XCTFail(@"QueryParser parseQueryString returns a non-empty dictionary when passed no complete key-value pairs");
         return;
     }
+    
     queryDictionary = [QueryParser parseQueryString:@"="];
     if ([queryDictionary count] > 0) {
+        XCTFail(@"QueryParser parseQueryString returns a non-empty dictionary when passed no complete key-value pairs");
         return;
     }
+     
     queryDictionary = [QueryParser parseQueryString:@"&"];
     if ([queryDictionary count] > 0) {
+        XCTFail(@"QueryParser parseQueryString returns a non-empty dictionary when passed no complete key-value pairs");
         return;
     }
+    
     // If there is no value, the dictionary should be empty.
     queryDictionary = [QueryParser parseQueryString:@"key="];
     if ([queryDictionary count] > 0) {
+        XCTFail(@"QueryParser parseQueryString returns a non-empty dictionary when passed no complete key-value pairs");
         return;
     }
+    
     queryDictionary = [QueryParser parseQueryString:@"&key"];
     if ([queryDictionary count] > 0) {
+        XCTFail(@"QueryParser parseQueryString returns a non-empty dictionary when passed no complete key-value pairs");
         return;
     }
+    
     // If there is no key, the dictionary should be empty.
     queryDictionary = [QueryParser parseQueryString:@"&=123"];
     if ([queryDictionary count] > 0) {
+        XCTFail(@"QueryParser parseQueryString returns a non-empty dictionary when passed no complete key-value pairs");
         return;
     }
+    
     // If one key has no value, the other key should still be processed and return with its value.
     queryDictionary = [QueryParser parseQueryString:@"&key1=&key2=123"];
     if (![(NSString *)[queryDictionary objectForKey:@"key2"] isEqualToString:@"123"] || [queryDictionary count] != 1) {
+        XCTFail(@"QueryParser parseQueryString returns an incorrect number of key-value pairs");
         return;
     }
+     
     queryDictionary = [QueryParser parseQueryString:@"&key1&key2=123"];
     if (![(NSString *)[queryDictionary objectForKey:@"key2"] isEqualToString:@"123"] || [queryDictionary count] != 1) {
+        XCTFail(@"QueryParser parseQueryString returns an incorrect number of key-value pairs");
         return;
     }
     queryDictionary = [QueryParser parseQueryString:@"&key1=123&key2"];
     if (![(NSString *)[queryDictionary objectForKey:@"key1"] isEqualToString:@"123"] || [queryDictionary count] != 1) {
+        XCTFail(@"QueryParser parseQueryString returns an incorrect number of key-value pairs");
         return;
     }
     XCTAssert(YES, @"Pass");
