@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.16</string>
+	<string>0.17</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -30,9 +30,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>8</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationUsageDescription</key>
+	<string>Location is needed to find other Hacker Schoolers over iBeacon</string>
 	<key>NSMainNibFile~ipad</key>
 	<string>Main-iPad</string>
 	<key>UIBackgroundModes</key>
@@ -61,7 +63,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>NSLocationUsageDescription</key>
-	<string>Location is needed to find other Hacker Schoolers over iBeacon</string>
 </dict>
 </plist>
