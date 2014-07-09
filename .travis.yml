@@ -9,5 +9,4 @@ env:
 
 language: objective-c
 script:
-- xctool -workspace SecretHandshake.xcworkspace -scheme SecretHandshake -sdk iphonesimulator
-  ONLY_ACTIVE_ARCH=NO clean build test
+- xctool -workspace SecretHandshake.xcworkspace -scheme SecretHandshake -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO clean build test
