@@ -5,13 +5,13 @@ before_install:
 
 env:
   global:
-  - secure: AzABFDswG9nv6YQfU63qqpM3H/9F7yVYK3bQJB4cT+XYvcLGhcppWYnvyXn5Qd/+8HJbQ5AF01dX5nEHp+nhsexnSQgK8XmFFCAkSVkd61P1nS4uQU/NFf9lQ7bs6zSDLD/Dk+xe6XeY+m9GhgSGqZpqmWU+mBeta68LbmSk7lw=
-  - secure: f4FAjmdW8TXBc769TQYeBrfTZro9EA6CFhTd8NmVFdd687ZSXhiHtKXz6I49wqnjg6D56we/4HkuNB987UtZzZh2b4cJIzmAlYOz/x2ntYBb4xhVLN8uB0+RLZpXhwvkvZ312Z7teLbOEWytNSPu/vVE+PezFu19uWMuka+l0ts=
-  - secure: cxeBL1OlSehvRRyattyG1kzH3fQg570FcH8qe0rT2auno8SNeTRDq8pQZ5ujSqKq/eH/8qLvuU3Z0qIcHhri+rsaI6KWmTdHCZIFl2nOz2ucWXvGgZrr0nhKSAma5T2P5UsRuvIrtaOBwNILbBO2+EMYqoRsc9BmISAib8c+dpU=
-  - secure: W9zOHjbC8pKP4hY1bPxCspXMH4kxC8AhCXxH2Y2+WnW0Kwv0udyCjU5It877grQ+ptP837vWTBqjyJRPl3gFzRkTOmWeo721wKlbojpcLo+TrAZ/kICXJRt1yw42Pnst3r+LwIgwK6EVXPnw3JFgf/JVuxNiuAKr2YE3fqHHb5c=
-  - secure: Jl+kBu/AO3A9K+5JdGI7oWBhsnwy4j1FtqvZzRYdwf+VGP8tPVjEub8xTprwcBDttmNF0hPV07npwGldhOSxGplYYq2JKPmw1YVBW7poIvKKxPM3OX+/opswz1xYWZQ/meP+32wC2RhZ4Cpt4yuj3xYRSGYm3H5YGozqWXuKvaw=
-  - secure: HGJ0O+eFqIjBjOnt+ZT5gtx2gMF5uyR/pd6ngoixZuitFZgZ83Nf0nh/2w7POY0u/F5I4irieWmJqhBOL7/W8PJxY2D3bs6EDExtK6n02aQCZQcuY5/hrtkE4hQuXAYRmW9IUj6mSvTxKVmsp9coLGr1w21maCgilgj7HjhEAP0=
-  
+  - secure: "AzABFDswG9nv6YQfU63qqpM3H/9F7yVYK3bQJB4cT+XYvcLGhcppWYnvyXn5Qd/+8HJbQ5AF01dX5nEHp+nhsexnSQgK8XmFFCAkSVkd61P1nS4uQU/NFf9lQ7bs6zSDLD/Dk+xe6XeY+m9GhgSGqZpqmWU+mBeta68LbmSk7lw="
+  - secure: "f4FAjmdW8TXBc769TQYeBrfTZro9EA6CFhTd8NmVFdd687ZSXhiHtKXz6I49wqnjg6D56we/4HkuNB987UtZzZh2b4cJIzmAlYOz/x2ntYBb4xhVLN8uB0+RLZpXhwvkvZ312Z7teLbOEWytNSPu/vVE+PezFu19uWMuka+l0ts="
+  - secure: "cxeBL1OlSehvRRyattyG1kzH3fQg570FcH8qe0rT2auno8SNeTRDq8pQZ5ujSqKq/eH/8qLvuU3Z0qIcHhri+rsaI6KWmTdHCZIFl2nOz2ucWXvGgZrr0nhKSAma5T2P5UsRuvIrtaOBwNILbBO2+EMYqoRsc9BmISAib8c+dpU="
+  - secure: "W9zOHjbC8pKP4hY1bPxCspXMH4kxC8AhCXxH2Y2+WnW0Kwv0udyCjU5It877grQ+ptP837vWTBqjyJRPl3gFzRkTOmWeo721wKlbojpcLo+TrAZ/kICXJRt1yw42Pnst3r+LwIgwK6EVXPnw3JFgf/JVuxNiuAKr2YE3fqHHb5c="
+  - secure: "Jl+kBu/AO3A9K+5JdGI7oWBhsnwy4j1FtqvZzRYdwf+VGP8tPVjEub8xTprwcBDttmNF0hPV07npwGldhOSxGplYYq2JKPmw1YVBW7poIvKKxPM3OX+/opswz1xYWZQ/meP+32wC2RhZ4Cpt4yuj3xYRSGYm3H5YGozqWXuKvaw="
+  - secure: "HGJ0O+eFqIjBjOnt+ZT5gtx2gMF5uyR/pd6ngoixZuitFZgZ83Nf0nh/2w7POY0u/F5I4irieWmJqhBOL7/W8PJxY2D3bs6EDExtK6n02aQCZQcuY5/hrtkE4hQuXAYRmW9IUj6mSvTxKVmsp9coLGr1w21maCgilgj7HjhEAP0="
+
 language: objective-c
 script:
 - xctool -workspace SecretHandshake.xcworkspace -scheme SecretHandshake -sdk iphonesimulator
