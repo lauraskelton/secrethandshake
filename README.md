@@ -1,4 +1,4 @@
-Secret Handshake    [![Build Status](https://travis-ci.org/lauraskelton/secrethandshake.svg?branch=master)](https://travis-ci.org/lauraskelton/secrethandshake)
+Secret Handshake       [![Build Status](https://travis-ci.org/lauraskelton/secrethandshake.svg?branch=master)](https://travis-ci.org/lauraskelton/secrethandshake)
 ===========
 Hacker Schooler Detector for iOS
 
