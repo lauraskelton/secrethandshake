@@ -1,8 +1,16 @@
 before_install:
-  - gem install cocoapods -v '0.33.1'
-  - brew update
-  - brew upgrade xctool
-  
+- gem install cocoapods -v '0.33.1'
+- brew update
+- brew upgrade xctool
 language: objective-c
 script:
-  - xctool -workspace SecretHandshake.xcworkspace -scheme SecretHandshake -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build test
+- xctool -workspace SecretHandshake.xcworkspace -scheme SecretHandshake -sdk iphonesimulator
+  ONLY_ACTIVE_ARCH=NO clean build test
+env:
+  global:
+  - secure: loSLPkUvp5WICKynavbXX5MtNLOJ7F8aqNlWOOOp234x1CnKi6ycxqVcQNZFjF76G/vVNeLijBiFXZjEks06iE3gzDqIvelh48y3qq3Ca/2dGuLpLDhFW8B72FUhHXq+Ndz47wB+c4+Qz/xFLAr885hAD86ZeJZhNQqhWbkIk+w=
+  - secure: PyTgDyf7/TGbh9wkQmGaylrOPCiczjkyuaFgzLYczi7vTgc8YBRK5NeaNcaVDnbj02f7SfFUFb2tzUL9ri7tUkoTT6EL2jOlMk7JtjPPkpTjtYZ4LWqH4cNryHliZmK+5aWoQAF864pkTyij+Ig7MhpTI+eJPPx2yCLU9l9ORmQ=
+  - secure: Fi4jPPSDvqW4ALCKclC6SCPkOllNBChNC5eR2bWMu8qGIAr4oHunCKqo5e4IBQX0TPl4l9cu5ZomCg+tBc2HSfETlIvZ6IbYH6wq9Ch0BKRepDiZUeRPpPHLIwA0L0TGYGOfSejRjSyGJNLifxU5bThHUCzk6xXNnDPpczYbbcs=
+  - secure: PtgAq6+Yop7c400Mi3oCc4fJOSFV7XlYXYnFrehaNBuu7/3uoj3WBy6Lq20UBJK3CZnowAHyKtyi9COPM4vAJ2chGLsS8OFwGRIlVtsFY+YSkqFDhlmDa3AB0GS6PSn3JgtUsCfj3yt8r1A2oiil4eqrssLPId93DZYffapxI9I=
+  - secure: CXymLE1/uH0uDKM4HwyV71zwGxcyjDlSBB2kHmGjlAIhJo6RfkNKWS3ZSzGQF+5iNL1tOrlpGuZKwTtonuBXq8rgoT7Nh7XrfygPlGpuHWnxCL8jEIrNHyWU9gkG+ssT7YpcB9ad01f2zH2ufo8lBVP33GfWlDghKOKqDc2vy6o=
+  - secure: dtfM/vqelWny6NhzsR/nxro5p7UU7A0NChK1jKM2QUc4S7wvOhLYJfQ1i6+2JANXeXyeaMfTE07hB8NOLfuJ9iw40YXCntTczuyhNHNyziEDB8QaOqGN2TnEAWKQ/fh/gIgWFiG+myqxAm6QU96QrAPAH5fJ5OHkoiogdAfb5yU=

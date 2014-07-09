@@ -48,7 +48,7 @@
     
     // Use Manual Sessions because we want to keep the session going when the app is backgrounded during OAuth login process
     [TestFlight setOptions:@{ TFOptionManualSessions : @YES }];
-    [TestFlight takeOff:@"5b09de90-f520-4781-bb58-09076761115f"];
+    [TestFlight takeOff:kTestFlightAppID];
     [TestFlight manuallyStartSession];
     
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;

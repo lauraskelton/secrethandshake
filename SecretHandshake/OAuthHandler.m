@@ -54,6 +54,7 @@
 -(void)launchExternalSignIn:(id)sender
 {
     //NSURL *authURL = [NSURL URLWithString:@"http://secrethandshakeapp.com/auth.php"];
+    NSLog(@"var: %@", kMyClientID);
     
     NSURL *authURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.hackerschool.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@", kMyClientID, kMyRedirectURI]];
     
