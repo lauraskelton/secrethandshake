@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TestFlightAPI</key>
+	<dict>
+		<key>AppID</key>
+		<string>YOUR_TESTFLIGHT_APP_ID_HERE</string>
+	</dict>
+	<key>HackerSchoolAPI</key>
+	<dict>
+		<key>ClientID</key>
+		<string>YOUR_CLIENT_ID_HERE</string>
+		<key>ClientSecret</key>
+		<string>YOUR_CLIENT_SECRET_HERE</string>
+	</dict>
+</dict>
+</plist>

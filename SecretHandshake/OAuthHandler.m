@@ -11,6 +11,7 @@
 #import "OAuthHandler.h"
 #import "QueryParser.h"
 #import "OAuthHandler_Internal.h"
+#import "Configuration.h"
 
 
 @implementation OAuthHandler
@@ -34,6 +35,11 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedHandler = [[OAuthHandler alloc] init];
+        
+        Configuration *config = [Configuration new];
+        _sharedHandler.hackerSchoolClientID = config.hackerschoolClientID;
+        _sharedHandler.hackerSchoolClientSecret = config.hackerschoolClientSecret;
+        config = nil;
 
     });
     
@@ -53,10 +59,8 @@
 
 -(void)launchExternalSignIn:(id)sender
 {
-    //NSURL *authURL = [NSURL URLWithString:@"http://secrethandshakeapp.com/auth.php"];
-    NSLog(@"var: %@", kMyClientID);
     
-    NSURL *authURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.hackerschool.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@", kMyClientID, kMyRedirectURI]];
+    NSURL *authURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.hackerschool.com/oauth/authorize?response_type=code&client_id=%@&redirect_uri=%@", self.hackerSchoolClientID, kMyRedirectURI]];
     
     [[UIApplication sharedApplication] openURL:authURL];
 }
@@ -69,10 +73,10 @@
     [request setHTTPMethod:@"POST"];
     NSString *postString;
     if (self.code != nil) {
-        postString = [NSString stringWithFormat:@"grant_type=authorization_code&client_id=%@&client_secret=%@&redirect_uri=%@&code=%@", kMyClientID, kMyClientSecret, kMyRedirectURI, self.code];
+        postString = [NSString stringWithFormat:@"grant_type=authorization_code&client_id=%@&client_secret=%@&redirect_uri=%@&code=%@", self.hackerSchoolClientID, self.hackerSchoolClientSecret, kMyRedirectURI, self.code];
     } else {
         NSLog(@"refreshing token");
-        postString = [NSString stringWithFormat:@"grant_type=refresh_token&client_id=%@&client_secret=%@&refresh_token=%@", kMyClientID, kMyClientSecret, [[NSUserDefaults standardUserDefaults] objectForKey:kSHRefreshTokenKey]];
+        postString = [NSString stringWithFormat:@"grant_type=refresh_token&client_id=%@&client_secret=%@&refresh_token=%@", self.hackerSchoolClientID, self.hackerSchoolClientSecret, [[NSUserDefaults standardUserDefaults] objectForKey:kSHRefreshTokenKey]];
     }
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"request: %@ method: %@ httpBody: %@", request, request.HTTPMethod, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);

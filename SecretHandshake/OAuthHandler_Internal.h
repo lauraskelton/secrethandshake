@@ -9,6 +9,8 @@
 @interface OAuthHandler ()
 
 @property (nonatomic, retain) NSString *code;
+@property (nonatomic, retain) NSString *hackerSchoolClientID;
+@property (nonatomic, retain) NSString *hackerSchoolClientSecret;
 
 -(void)launchExternalSignIn:(id)sender;
 -(void)requestAccessToken;

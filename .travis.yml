@@ -2,10 +2,7 @@ before_install:
 - gem install cocoapods -v '0.33.1'
 - brew update
 - brew upgrade xctool
-
-env:
-  global:
-    - HS_CLIENT_ID='@"234234342asfda"' HS_CLIENT_SECRET='@"23423hjkh234123kjhkjh"' TESTFLIGHT_APP_ID='@"sdfa89fd-df89-2343-fd89-23432353234h"'
+- cp Configuration.example.plist Configuration.plist
 
 language: objective-c
 script:

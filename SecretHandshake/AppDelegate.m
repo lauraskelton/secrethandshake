@@ -22,6 +22,8 @@
 #import "IBeaconSearchHandler.h"
 #import "IBeaconTransmitHandler.h"
 
+#import "Configuration.h"
+
 @interface AppDelegate () <OAuthHandlerDelegate, HackerSchoolAPIManagerDelegate, IBeaconSearchHandlerDelegate>
 
 @property (nonatomic, retain) MasterViewController *masterViewController;
@@ -48,7 +50,9 @@
     
     // Use Manual Sessions because we want to keep the session going when the app is backgrounded during OAuth login process
     [TestFlight setOptions:@{ TFOptionManualSessions : @YES }];
-    [TestFlight takeOff:kTestFlightAppID];
+    Configuration *config = [Configuration new];
+    [TestFlight takeOff:config.testFlightAppID];
+    config = nil;
     [TestFlight manuallyStartSession];
     
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
