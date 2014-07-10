@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4EF78756C34343BF9FBB128D /* libPods-SecretHandshake.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C92916D2984533A5EE0C2B /* libPods-SecretHandshake.a */; };
-		820967CD196EEB6E00BAA774 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 820967CC196EEB6E00BAA774 /* Configuration.plist */; };
-		820967CF196EEB9D00BAA774 /* Configuration.example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 820967CE196EEB9D00BAA774 /* Configuration.example.plist */; };
 		820967D2196EED9500BAA774 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = 820967D1196EED9500BAA774 /* Configuration.m */; };
 		820B224319564FBD0044E311 /* OAuthHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 820B224219564FBD0044E311 /* OAuthHandler.m */; };
+		82764DAC196F17F4004D26E7 /* Configuration.example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82764DAA196F17F4004D26E7 /* Configuration.example.plist */; };
+		82764DAD196F17F4004D26E7 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82764DAB196F17F4004D26E7 /* Configuration.plist */; };
 		829F2E0C196CC8AE003826BF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 828DE2411954C636008290BB /* README.md */; };
 		829F2E0D196CC8B6003826BF /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 829F2E0B196CC8A8003826BF /* .travis.yml */; };
 		829F2E0E196CC8B7003826BF /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 829F2E0B196CC8A8003826BF /* .travis.yml */; };
@@ -57,13 +57,13 @@
 		29E4B3BE50B4422B965938DC /* libPods-SecretHandshakeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SecretHandshakeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3715B0C3D07D4EF8BB0F9712 /* Pods-SecretHandshake.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretHandshake.xcconfig"; path = "Pods/Pods-SecretHandshake.xcconfig"; sourceTree = "<group>"; };
 		3B2835B3094E4C42945C86C7 /* Pods-SecretHandshakeTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretHandshakeTests.xcconfig"; path = "Pods/Pods-SecretHandshakeTests.xcconfig"; sourceTree = "<group>"; };
-		820967CC196EEB6E00BAA774 /* Configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
-		820967CE196EEB9D00BAA774 /* Configuration.example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.example.plist; sourceTree = "<group>"; };
 		820967D0196EED9500BAA774 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
 		820967D1196EED9500BAA774 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
 		820B224119564FBD0044E311 /* OAuthHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthHandler.h; sourceTree = "<group>"; };
 		820B224219564FBD0044E311 /* OAuthHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthHandler.m; sourceTree = "<group>"; };
 		825822B4195365A80098ED5B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		82764DAA196F17F4004D26E7 /* Configuration.example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.example.plist; sourceTree = SOURCE_ROOT; };
+		82764DAB196F17F4004D26E7 /* Configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = SOURCE_ROOT; };
 		828DE2411954C636008290BB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		829F2E0B196CC8A8003826BF /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		82A3C21E1963B0A900C241C2 /* QueryParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryParser.h; sourceTree = "<group>"; };
@@ -141,8 +141,8 @@
 		820967D3196EED9F00BAA774 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				820967CC196EEB6E00BAA774 /* Configuration.plist */,
-				820967CE196EEB9D00BAA774 /* Configuration.example.plist */,
+				82764DAA196F17F4004D26E7 /* Configuration.example.plist */,
+				82764DAB196F17F4004D26E7 /* Configuration.plist */,
 				820967D0196EED9500BAA774 /* Configuration.h */,
 				820967D1196EED9500BAA774 /* Configuration.m */,
 			);
@@ -430,10 +430,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82764DAC196F17F4004D26E7 /* Configuration.example.plist in Resources */,
 				829F2E0C196CC8AE003826BF /* README.md in Resources */,
-				820967CD196EEB6E00BAA774 /* Configuration.plist in Resources */,
 				82DEA81119525D1C00C526FF /* Main.storyboard in Resources */,
-				820967CF196EEB9D00BAA774 /* Configuration.example.plist in Resources */,
+				82764DAD196F17F4004D26E7 /* Configuration.plist in Resources */,
 				829F2E0D196CC8B6003826BF /* .travis.yml in Resources */,
 				82DEA81319525D1C00C526FF /* Images.xcassets in Resources */,
 			);
