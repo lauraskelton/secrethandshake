@@ -8,6 +8,9 @@
 
 #import <XCTest/XCTest.h>
 #import "HackerSchoolAPIManager.h"
+#import "OAuthHandler.h"
+#import "HackerSchoolAPIManager_Internal.h"
+
 
 @interface HackerSchoolAPIManagerTests : XCTestCase
 
@@ -56,4 +59,20 @@
     
 }
 
+- (void)testHandleResponseWithData {
+    
+    //-(BOOL)handleResponseWithData:(NSData *)data andError:(NSError *)error isMe:(NSNumber *)isMe;
+    
+    // If all arguments are nil, it should return false
+    if ([[HackerSchoolAPIManager sharedWithContext:nil] handleResponseWithData:nil andError:nil isMe:nil]) {
+        XCTFail(@"HackerSchoolAPIManager handleResponseWithData returns true with nil arguments");
+        return;
+    }
+    // If error is not nil, it should return false
+    if ([[HackerSchoolAPIManager sharedWithContext:nil] handleResponseWithData:nil andError:[[NSError alloc] initWithDomain:@"Test Domain" code:404 userInfo:@{@"test key": @"test value"}] isMe:nil]) {
+        XCTFail(@"HackerSchoolAPIManager handleResponseWithData returns true with non-nil error");
+        return;
+    }
+}
+ 
 @end

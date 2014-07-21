@@ -11,16 +11,7 @@
 #import "HackerSchooler.h"
 #import "Event.h"
 #import <CoreData/CoreData.h>
-
-@interface HackerSchoolAPIManager ()
-
--(void)saveMyProfileWithInfo:(NSDictionary *)profileDict;
--(void)recordHackerSchoolerSightingWithProfile:(NSDictionary *)profile;
--(void)addEventWithHackerSchooler:(HackerSchooler *)hackerSchooler;
--(HackerSchooler *)addHackerSchoolerWithProfile:(NSDictionary *)profile;
--(void)setUserID:(NSInteger)userID;
-
-@end
+#import "HackerSchoolAPIManager_Internal.h"
 
 @implementation HackerSchoolAPIManager
 @synthesize delegate, managedObjectContext;
@@ -51,8 +42,20 @@
 
 -(void)downloadUserProfileWithID:(NSNumber *)userID isMe:(NSNumber *)isMe
 {
-    NSURL *profilesURL;
+    NSURLRequest *request = [self downloadUserProfileRequestWithID:userID isMe:isMe];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+                               
+                               [self handleResponseWithData:data andError:error isMe:isMe];
+                               
+                           }];
+}
 
+-(NSURLRequest *)downloadUserProfileRequestWithID:(NSNumber *)userID isMe:(NSNumber *)isMe
+{
+    NSURL *profilesURL;
     if ([isMe boolValue]) {
         profilesURL = [NSURL URLWithString:@"https://www.hackerschool.com/api/v1/people/me"];
     } else {
@@ -63,41 +66,49 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:profilesURL];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", [[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey]] forHTTPHeaderField:@"Authorization"];
     
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                               
-                               NSString *responseBody = [ [NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                               
-                               NSLog(@"response: %@", responseBody);
-                               
-                               NSData *jsonData = [responseBody dataUsingEncoding:NSUTF8StringEncoding];
-                               NSError *e;
-                               NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&e];
-                               
-                               if (e != nil) {
-                                   NSLog(@"error: %@", e);
-                                   [self.delegate hackerSchoolAPIError];
-                               } else {
-                                   if ([jsonDict objectForKey:@"message"] != nil) {
-                                       if ([[jsonDict objectForKey:@"message"] isEqualToString:@"unauthorized"]) {
-                                           [self.delegate hackerSchoolAPIUnauthorized];
-                                       } else {
-                                           NSLog(@"error message from HS api: %@", [jsonDict objectForKey:@"message"]);
-                                           [self.delegate hackerSchoolAPIError];
-                                       }
-                                   }
-                                   else {
-                                       if ([isMe boolValue]) {
-                                           [self saveMyProfileWithInfo:jsonDict];
-                                       }
-                                       else {
-                                           [self recordHackerSchoolerSightingWithProfile:jsonDict];
-                                       }
-                                   }
-                               }
-                               
-                           }];
+    return request;
+}
+
+-(BOOL)handleResponseWithData:(NSData *)data andError:(NSError *)error isMe:(NSNumber *)isMe
+{
+    if (error == nil && data != nil) {
+        NSString *responseBody = [ [NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        if (responseBody != nil) {
+            
+            NSLog(@"response: %@", responseBody);
+            
+            //NSData *jsonData = [responseBody dataUsingEncoding:NSUTF8StringEncoding];
+            
+            NSError *e;
+            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&e];
+            
+            NSLog(@"jsonDict: %@", jsonDict);
+            
+            if (e != nil) {
+                NSLog(@"error creating json object from response: %@", e);
+                [self.delegate hackerSchoolAPIError];
+                return false;
+            } else if ([jsonDict objectForKey:@"message"] != nil) {
+                if ([[jsonDict objectForKey:@"message"] isEqualToString:@"unauthorized"]) {
+                    [self.delegate hackerSchoolAPIUnauthorized];
+                } else {
+                    NSLog(@"error message from HS api: %@", [jsonDict objectForKey:@"message"]);
+                    [self.delegate hackerSchoolAPIError];
+                }
+            } else {
+                if ([isMe boolValue]) {
+                    [self saveMyProfileWithInfo:jsonDict];
+                }
+                else {
+                    [self recordHackerSchoolerSightingWithProfile:jsonDict];
+                }
+            }
+        }
+    } else {
+        NSLog(@"Error connecting to Hacker School API: %@", error);
+    }
+    return false;
 }
 
 -(void)setUserID:(NSInteger)userID

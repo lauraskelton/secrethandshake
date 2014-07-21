@@ -6,10 +6,25 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		8292BDE4197A9FBC0036D29A /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 8292BDE7197A9FBC0036D29A /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				8292BDE8197A9FC90036D29A /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		4EF78756C34343BF9FBB128D /* libPods-SecretHandshake.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5C92916D2984533A5EE0C2B /* libPods-SecretHandshake.a */; };
 		820967D2196EED9500BAA774 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = 820967D1196EED9500BAA774 /* Configuration.m */; };
 		820B224319564FBD0044E311 /* OAuthHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 820B224219564FBD0044E311 /* OAuthHandler.m */; };
+		822A5E06197D7C0A00E086C5 /* QueryParserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 822A5E05197D7C0A00E086C5 /* QueryParserSpec.m */; };
 		82764DAC196F17F4004D26E7 /* Configuration.example.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82764DAA196F17F4004D26E7 /* Configuration.example.plist */; };
 		82764DAD196F17F4004D26E7 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82764DAB196F17F4004D26E7 /* Configuration.plist */; };
 		829F2E0C196CC8AE003826BF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 828DE2411954C636008290BB /* README.md */; };
@@ -44,6 +59,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8209F85D197606E90005A645 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82DEA7F419525D1C00C526FF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 82DEA7FB19525D1C00C526FF;
+			remoteInfo = SecretHandshake;
+		};
+		8209F85F197606E90005A645 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82DEA7F419525D1C00C526FF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 82DEA7FB19525D1C00C526FF;
+			remoteInfo = SecretHandshake;
+		};
 		82DEA81919525D1D00C526FF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 82DEA7F419525D1C00C526FF /* Project object */;
@@ -59,8 +88,10 @@
 		3B2835B3094E4C42945C86C7 /* Pods-SecretHandshakeTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SecretHandshakeTests.xcconfig"; path = "Pods/Pods-SecretHandshakeTests.xcconfig"; sourceTree = "<group>"; };
 		820967D0196EED9500BAA774 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
 		820967D1196EED9500BAA774 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
+		8209F86219760E030005A645 /* HackerSchoolAPIManager_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HackerSchoolAPIManager_Internal.h; sourceTree = "<group>"; };
 		820B224119564FBD0044E311 /* OAuthHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthHandler.h; sourceTree = "<group>"; };
 		820B224219564FBD0044E311 /* OAuthHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthHandler.m; sourceTree = "<group>"; };
+		822A5E05197D7C0A00E086C5 /* QueryParserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryParserSpec.m; sourceTree = "<group>"; };
 		825822B4195365A80098ED5B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		82764DAA196F17F4004D26E7 /* Configuration.example.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.example.plist; sourceTree = SOURCE_ROOT; };
 		82764DAB196F17F4004D26E7 /* Configuration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = SOURCE_ROOT; };
@@ -166,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				82A3C2291964BF0B00C241C2 /* HackerSchoolAPIManager.h */,
+				8209F86219760E030005A645 /* HackerSchoolAPIManager_Internal.h */,
 				82A3C22A1964BF0B00C241C2 /* HackerSchoolAPIManager.m */,
 				82A3C2421965FB8600C241C2 /* HackerSchoolAPIManagerTests.m */,
 			);
@@ -205,6 +237,7 @@
 				82A3C21E1963B0A900C241C2 /* QueryParser.h */,
 				82A3C21F1963B0A900C241C2 /* QueryParser.m */,
 				82A3C24A1965FBBA00C241C2 /* QueryParserTests.m */,
+				822A5E05197D7C0A00E086C5 /* QueryParserSpec.m */,
 			);
 			name = OAuth;
 			sourceTree = "<group>";
@@ -375,6 +408,8 @@
 			);
 			dependencies = (
 				82DEA81A19525D1D00C526FF /* PBXTargetDependency */,
+				8209F85E197606E90005A645 /* PBXTargetDependency */,
+				8209F860197606E90005A645 /* PBXTargetDependency */,
 			);
 			name = SecretHandshakeTests;
 			productName = SecretHandshakeTests;
@@ -421,6 +456,7 @@
 			targets = (
 				82DEA7FB19525D1C00C526FF /* SecretHandshake */,
 				82DEA81719525D1D00C526FF /* SecretHandshakeTests */,
+				8292BDE4197A9FBC0036D29A /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -495,6 +531,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-SecretHandshake-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8292BDE8197A9FC90036D29A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"BeerChooser\";\ncompanyID=\"com.beerchooser\";\ncompanyURL=\"http://beerchooser.com\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-undocumented-objects \\\n--keep-undocumented-members \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--warn-missing-arg \\\n--warn-empty-description \\\n--warn-unknown-directive \\\n--index-desc \"${PROJECT_DIR}/README.md\" \\\n--exit-threshold 2 \\\n\"${PROJECT_DIR}\"";
+		};
 		EF48E3C9C5B0426FA841A7D7 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -540,6 +589,7 @@
 			files = (
 				82A3C2471965FBA000C241C2 /* IBeaconTransmitHandlerTests.m in Sources */,
 				82A3C24B1965FBBA00C241C2 /* QueryParserTests.m in Sources */,
+				822A5E06197D7C0A00E086C5 /* QueryParserSpec.m in Sources */,
 				82A3C2431965FB8600C241C2 /* HackerSchoolAPIManagerTests.m in Sources */,
 				82DEA81F19525D1D00C526FF /* SecretHandshakeTests.m in Sources */,
 				82A3C2451965FB9500C241C2 /* IBeaconSearchHandlerTests.m in Sources */,
@@ -551,6 +601,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8209F85E197606E90005A645 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 82DEA7FB19525D1C00C526FF /* SecretHandshake */;
+			targetProxy = 8209F85D197606E90005A645 /* PBXContainerItemProxy */;
+		};
+		8209F860197606E90005A645 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 82DEA7FB19525D1C00C526FF /* SecretHandshake */;
+			targetProxy = 8209F85F197606E90005A645 /* PBXContainerItemProxy */;
+		};
 		82DEA81A19525D1D00C526FF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 82DEA7FB19525D1C00C526FF /* SecretHandshake */;
@@ -570,6 +630,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8292BDE5197A9FBC0036D29A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8292BDE6197A9FBC0036D29A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		82DEA82019525D1D00C526FF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -740,6 +814,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8292BDE7197A9FBC0036D29A /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8292BDE5197A9FBC0036D29A /* Debug */,
+				8292BDE6197A9FBC0036D29A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		82DEA7F719525D1C00C526FF /* Build configuration list for PBXProject "SecretHandshake" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

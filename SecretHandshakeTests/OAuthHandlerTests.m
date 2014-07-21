@@ -8,6 +8,8 @@
 
 #import <XCTest/XCTest.h>
 
+#import "SecretHandshake-Prefix.pch"
+
 #import "OAuthHandler.h"
 #import "OAuthHandler_Internal.h"
 #import "QueryParser.h"
@@ -112,6 +114,17 @@
     // If error is nil and data is not nil and the string contains both a refresh token and an access token, it should return true
     if (![[OAuthHandler sharedHandler] handleResponseWithData:[@"{\"access_token\":\"someaccesstoken\",\"refresh_token\":\"somerefreshtoken\"}" dataUsingEncoding:NSUTF8StringEncoding] andError:nil]) {
         XCTFail(@"OAuthHandler handleResponseWithData returns false with a refresh token and access token and no error");
+        return;
+    }
+    
+    // If error is nil and data is not nil and the string contains both a refresh token and an access token, it should save to user defaults
+    if (![[[NSUserDefaults standardUserDefaults] objectForKey:kSHAccessTokenKey] isEqualToString:@"someaccesstoken"]) {
+        XCTFail(@"OAuthHandler handleResponseWithData does not save access token to user defaults");
+        return;
+    }
+    
+    if (![[[NSUserDefaults standardUserDefaults] objectForKey:kSHRefreshTokenKey] isEqualToString:@"somerefreshtoken"]) {
+        XCTFail(@"OAuthHandler handleResponseWithData does not save refresh token to user defaults");
         return;
     }
     

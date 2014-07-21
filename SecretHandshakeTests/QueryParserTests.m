@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 Laura Skelton. All rights reserved.
 //
 
+
+// Unit Tests written in XCode's built-in testing framework
+
 #import <XCTest/XCTest.h>
 
 #import "QueryParser.h"
